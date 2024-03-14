@@ -11,10 +11,12 @@ import { removeRouteListener } from '@/utils/route-listener';
 import { UserState } from './types';
 import useAppStore from '../app';
 
+import imageUrl from '@/assets/images/avatar.jpg';
+
 const useUserStore = defineStore('user', {
   state: (): UserState => ({
     name: undefined,
-    avatar: '@/assets/images/avator.jpg',
+    avatar: imageUrl, // 使用本地固定图片，需要导入
     job: undefined,
     organization: undefined,
     location: undefined,
