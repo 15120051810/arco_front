@@ -24,7 +24,9 @@
           </template>
         </a-statistic>
       </a-space>
+      
     </a-grid-item>
+
     <a-grid-item
       class="panel-col"
       :span="{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12, xxl: 6 }"
@@ -49,6 +51,7 @@
         </a-statistic>
       </a-space>
     </a-grid-item>
+
     <a-grid-item
       class="panel-col"
       :span="{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12, xxl: 6 }"
@@ -73,6 +76,7 @@
         </a-statistic>
       </a-space>
     </a-grid-item>
+
     <a-grid-item
       class="panel-col"
       :span="{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12, xxl: 6 }"
@@ -96,6 +100,7 @@
         </a-statistic>
       </a-space>
     </a-grid-item>
+
     <a-grid-item :span="24">
       <a-divider class="panel-border" />
     </a-grid-item>

@@ -5,6 +5,7 @@ import {
   getUserInfo,
   LoginData,
 } from '@/api/user';
+
 import { setToken, clearToken } from '@/utils/auth';
 import { removeRouteListener } from '@/utils/route-listener';
 import { UserState } from './types';
@@ -13,7 +14,7 @@ import useAppStore from '../app';
 const useUserStore = defineStore('user', {
   state: (): UserState => ({
     name: undefined,
-    avatar: undefined,
+    avatar: '@/assets/images/avator.jpg',
     job: undefined,
     organization: undefined,
     location: undefined,
@@ -63,7 +64,12 @@ const useUserStore = defineStore('user', {
     // Login
     async login(loginForm: LoginData) {
       try {
+        console.log('登录loginForm',loginForm.username)
+
         const res = await userLogin(loginForm);
+        console.log('登录返回结果',res)
+        window.localStorage.setItem('userRole', loginForm.username);
+      
         setToken(res.data.token);
       } catch (err) {
         clearToken();
