@@ -22,11 +22,13 @@ axios.interceptors.request.use(
     // Authorization is a custom headers key
     // please modify it according to the actual situation
     const token = getToken();
+    console.log('请求拦截,配置config', config)
+
     if (token) {
       if (!config.headers) {
         config.headers = {};
       }
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `JWT ${token}`;
     }
     return config;
   },
@@ -69,10 +71,33 @@ axios.interceptors.response.use(
     return res;
   },
   (error) => {
+    let errInfo = ''
+    let status = error.response.status
+    console.log('请求错误返回状态码', status)
+
+    switch (status) {
+
+      case 404:
+        errInfo = '请求地址错误'
+        break;
+      case 500:
+        errInfo = '服务端错误'
+        break;
+      case 401:
+        errInfo = 'TOKEN过期'
+        break;
+      case 403:
+        errInfo = '无权访问'
+        break;
+    }
+
+    console.log('请求错误返回', errInfo)
+
     Message.error({
-      content: error.msg || 'Request Error',
+      content: error.msg || errInfo,
       duration: 5 * 1000,
     });
+
     return Promise.reject(error);
   }
 );

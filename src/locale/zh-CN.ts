@@ -26,6 +26,6 @@ export default {
   ...localeLogin,
   ...localeWorkplace,
 
-  'menu.dj_table':'表格练习',
-  'menu.dj_table.practice': '练习场',
+  'menu.dj_table':'表格',
+  'menu.dj_table.practice': '表格工厂',
 };

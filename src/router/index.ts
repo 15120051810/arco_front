@@ -17,8 +17,8 @@ const router = createRouter({
     },
     {
       path: '/login',
-      name: 'login',
-      component: () => import('@/views/login/index.vue'),
+      name: 'login', // 命名路由 做路由（菜单的）的权限
+      component: () => import('@/views/login/index.vue'),// 路由懒加载
       meta: {
         requiresAuth: false,
       },
