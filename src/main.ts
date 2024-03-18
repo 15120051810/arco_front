@@ -19,7 +19,9 @@ const app = createApp(App);
 app.use(ArcoVue, {});
 app.use(ArcoVueIcon);
 
+// 注册路由
 app.use(router);
+
 app.use(store);
 app.use(i18n);
 app.use(globalComponents);

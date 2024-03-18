@@ -1,6 +1,7 @@
 <template>
   <a-config-provider :locale="locale">
-    <router-view />
+    <!-- 页面路径改变就会匹配相应的路由，在占位的地方展示 -->
+    <router-view /> 
     <global-setting />
   </a-config-provider>
 </template>
