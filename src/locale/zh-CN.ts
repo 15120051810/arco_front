@@ -26,6 +26,14 @@ export default {
   ...localeLogin,
   ...localeWorkplace,
 
-  'menu.dj_table':'表格',
-  'menu.dj_table.practice': '表格工厂',
+  'menu.dj_table':'table',
+  'menu.dj_table.practice': 'table Demo',
+
+
+  'menu.dj_echarts': 'Echarts',
+  'menu.dj_echarts.demo': 'echarts Demo',
+
+
+  'menu.dj_list': 'List',
+  'menu.dj_list.demo1': 'List Demo',
 };

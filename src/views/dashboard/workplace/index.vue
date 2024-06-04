@@ -4,8 +4,8 @@
       
       <div class="panel">
         <Banner />
-        <!-- <DataPanel /> -->
-        <!-- <ContentChart /> -->
+        <DataPanel />
+        <ContentChart />
       </div>
       <a-grid :cols="24" :col-gap="16" :row-gap="16" style="margin-top: 16px">
         <a-grid-item

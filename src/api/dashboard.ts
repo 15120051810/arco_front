@@ -7,7 +7,7 @@ export interface ContentDataRecord {
 }
 
 export function queryContentData() {
-  return axios.get<ContentDataRecord[]>('/api/content-data');
+  return axios.get<ContentDataRecord[]>('/api/dashboard/content-data');
 }
 
 export interface PopularRecord {

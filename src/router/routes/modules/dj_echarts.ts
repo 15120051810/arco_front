@@ -2,22 +2,22 @@ import { DEFAULT_LAYOUT } from '../base';
 import { AppRouteRecordRaw } from '../types';
 
 const LIST: AppRouteRecordRaw = {
-    path: '/dj_table',
-    name: 'dj_table',
+    path: '/dj_echarts',
+    name: 'dj_echarts',
     component: DEFAULT_LAYOUT,
     meta: {
-        locale: 'menu.dj_table',
+        locale: 'menu.dj_echarts',
         requiresAuth: true,
         icon: 'icon-list',
-        order: 3,
+        order: 1,
     },
     children: [
         {
-            path: 'practice',  // The midline path complies with SEO specifications
-            name: 'practice',
-            component: () => import('@/views/dj_table/index.vue'),
+            path: 'demo',  // The midline path complies with SEO specifications
+            name: 'demo',
+            component: () => import('@/views/dj_echarts/index.vue'),
             meta: {
-                locale: 'menu.dj_table.practice',
+                locale: 'menu.dj_echarts.demo',
                 requiresAuth: true,
                 roles: ['*'],
             },
