@@ -29,6 +29,13 @@ export default {
   'menu.dj_table':'表格练习',
   'menu.dj_table.practice': '练习场',
 
-  // 'menu.dj_list': 'List',
-  // 'menu.dj_list.demo': 'List Demo',
+  'menu.dj_list': 'List',
+  'menu.dj_list.demo1': 'List Demo1',
+  'menu.calendar': 'Calendar',
+  'menu.calendar.demo': 'Calendar Demo',
+
+  'menu.v3_demos': '案例',
+  'menu.v3_demos.RefAndReactive': 'ref和reactive嵌套响应',
+  'menu.v3_demos.JiSuanShuXing':'计算属性'
+
 };

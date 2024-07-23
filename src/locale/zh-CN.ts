@@ -26,7 +26,7 @@ export default {
   ...localeLogin,
   ...localeWorkplace,
 
-  'menu.dj_table':'table',
+  'menu.dj_table':'表格',
   'menu.dj_table.practice': 'table Demo',
 
 
@@ -34,6 +34,14 @@ export default {
   'menu.dj_echarts.demo': 'echarts Demo',
 
 
-  'menu.dj_list': 'List',
+  'menu.dj_list': '列表',
   'menu.dj_list.demo1': 'List Demo',
+
+  'menu.dj_calendar': '日历',
+  'menu.dj_calendar.demo': 'Calendar Demo',
+
+  'menu.v3_demos': '案例',
+  'menu.v3_demos.RefAndReactive': 'ref和reactive嵌套响应',
+  'menu.v3_demos.JiSuanShuXing':'计算属性'
+
 };
