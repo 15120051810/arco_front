@@ -36,6 +36,8 @@ export default {
 
   'menu.v3_demos': '案例',
   'menu.v3_demos.RefAndReactive': 'ref和reactive嵌套响应',
-  'menu.v3_demos.JiSuanShuXing':'计算属性'
+  'menu.v3_demos.JiSuanShuXing':'计算属性',
+  'menu.v3_demos.tongxinDemo.props':'通讯props',
+  'menu.v3_demos.SkickyToTop':'查询固定在顶端'
 
 };

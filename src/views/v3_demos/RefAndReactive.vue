@@ -51,7 +51,7 @@
 
 </template>
 
-<script setup lang="ts">
+<script setup>
 
 import { reactive, ref } from 'vue';
 

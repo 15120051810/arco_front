@@ -14,6 +14,33 @@ const LIST: AppRouteRecordRaw = {
     // src/views/v3_ demos/RefAndReactive.vue
     children: [
         {
+            path: '1VModel',  
+            name: '1VModel',
+            component: () => import('@/views/v3_demos/1VModel.vue'),
+            meta: {
+                locale: 'menu.v3_demos.1VModel',
+                requiresAuth: true,
+            },
+        },
+        {
+            path: '2toRefs',  
+            name: '2toRefs',
+            component: () => import('@/views/v3_demos/2toRefs.vue'),
+            meta: {
+                locale: 'menu.v3_demos.2toRefs',
+                requiresAuth: true,
+            },
+        },
+        {
+            path: '3DateSelected',  
+            name: '3DateSelected',
+            component: () => import('@/views/v3_demos/3DateSelected.vue'),
+            meta: {
+                locale: 'menu.v3_demos.3DateSelected',
+                requiresAuth: true,
+            },
+        },
+        {
             path: 'RefAndReactive',  // 不同目录下的子路径name也要不一样
             name: 'RefAndReactive',
             component: () => import('@/views/v3_demos/RefAndReactive.vue'),
@@ -31,7 +58,24 @@ const LIST: AppRouteRecordRaw = {
                 requiresAuth: true,
             },
         },
-
+        // {
+        //     path: 'TongXunProps',  
+        //     name: 'TongXunProps',
+        //     component: () => import('@/views/v3_demos/tongxunDemo/props/parent.vue'),
+        //     meta: {
+        //         locale: 'menu.v3_demos.tongxinDemo.props',
+        //         requiresAuth: true,
+        //     },
+        // }
+        {
+            path: 'SkickyToTop',  
+            name: 'SkickyToTop',
+            component: () => import('@/views/v3_demos/SkickyToTop.vue'),
+            meta: {
+                locale: 'menu.v3_demos.SkickyToTop',
+                requiresAuth: true,
+            },
+        }
     ],
     
 };

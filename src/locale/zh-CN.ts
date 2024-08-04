@@ -25,7 +25,15 @@ export default {
   ...localeMessageBox,
   ...localeLogin,
   ...localeWorkplace,
+  
+  'menu.system_manage': '系统管理',
+  'menu.orgs_manage': '组织管理',
+  'menu.users_manage': '用户管理',
+  'menu.roles_manage': '角色管理',
+  'menu.routers_manage': '菜单管理',
+  'menu.apis_manage': '接口管理',
 
+  
   'menu.dj_table':'表格',
   'menu.dj_table.practice': 'table Demo',
 
@@ -41,7 +49,12 @@ export default {
   'menu.dj_calendar.demo': 'Calendar Demo',
 
   'menu.v3_demos': '案例',
+  'menu.v3_demos.1VModel':'双向绑定值如何更新',
+  'menu.v3_demos.2toRefs':'toRefs和toRef',
   'menu.v3_demos.RefAndReactive': 'ref和reactive嵌套响应',
-  'menu.v3_demos.JiSuanShuXing':'计算属性'
+  'menu.v3_demos.JiSuanShuXing':'计算属性',
+  'menu.v3_demos.tongxinDemo.props':'通讯props',
+  'menu.v3_demos.SkickyToTop':'查询固定在顶端',
+  'menu.v3_demos.3DateSelected':'日期选择器'
 
 };

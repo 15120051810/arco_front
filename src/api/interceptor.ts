@@ -41,7 +41,7 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   (response: AxiosResponse<HttpResponse>) => {
     const res = response.data;
-    // console.log('返回信息--->',res)
+    console.log('返回信息--->',res)
     // if the custom code is not 20000, it is judged as an error.
     // if (res.code !== 20000) {
     //   Message.error({
