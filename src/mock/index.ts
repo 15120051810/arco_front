@@ -5,6 +5,8 @@ import './message-box';
 
 import '@/views/dashboard/workplace/mock';
 
-Mock.setup({
-  timeout: '600-1000',
-});
+
+console.log('mock入口文件')
+// Mock.setup({
+//   timeout: '600-1000',
+// });

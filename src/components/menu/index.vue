@@ -1,12 +1,21 @@
+
+<!-- 这段代码是一个 Vue 3 组件的实现，使用 TypeScript 和 JSX（TSX）语法。这个组件是一个侧边菜单栏的实现，具体功能包括：
+
+菜单的展开与折叠：支持在桌面设备上折叠和展开菜单。
+菜单的导航：点击菜单项可以进行页面导航，包括外部链接和内部路由。
+动态菜单渲染：根据路由配置动态生成菜单项。 -->
+
+
 <script lang="tsx">
   import { defineComponent, ref, h, compile, computed } from 'vue';
   import { useI18n } from 'vue-i18n';
-  import { useRoute, useRouter, RouteRecordRaw } from 'vue-router';
+  import { useRoute, useRouter, RouteRecordRaw } from 'vue-router'; // 获取 Vue Router 的路由实例和当前路由信息。
   import type { RouteMeta } from 'vue-router';
   import { useAppStore } from '@/store';
   import { listenerRouteChange } from '@/utils/route-listener';
   import { openWindow, regexUrl } from '@/utils';
-  import useMenuTree from './use-menu-tree';
+  import useMenuTree from './use-menu-tree'; // 自定义函数，用于获取菜单树的数据。
+import { join } from 'lodash';
 
   export default defineComponent({
     emit: ['collapse'],
@@ -16,7 +25,8 @@
       const router = useRouter();
       const route = useRoute();
       const { menuTree } = useMenuTree();
-      const collapsed = computed({
+      const collapsed = computed({ //计算属性，用于控制菜单的展开和折叠状态。根据 appStore.device 判断是否是桌面设备来决定菜单的折叠状态。
+
         get() {
           if (appStore.device === 'desktop') return appStore.menuCollapse;
           return false;
@@ -26,11 +36,11 @@
         },
       });
 
-      const topMenu = computed(() => appStore.topMenu);
-      const openKeys = ref<string[]>([]);
-      const selectedKey = ref<string[]>([]);
+      const topMenu = computed(() => appStore.topMenu); // 计算属性，用于获取顶级菜单配置。
+      const openKeys = ref<string[]>([]); // 响应式数据，用于控制展开的菜单项
+      const selectedKey = ref<string[]>([]); // 响应式数据，用于控制选中的菜单项。
 
-      const goto = (item: RouteRecordRaw) => {
+      const goto = (item: RouteRecordRaw) => { // 根据菜单项的 path 进行页面导航。处理了外部链接和内部路由。
         // Open external link
         if (regexUrl.test(item.path)) {
           openWindow(item.path);
@@ -48,7 +58,7 @@
           name: item.name,
         });
       };
-      const findMenuOpenKeys = (target: string) => {
+      const findMenuOpenKeys = (target: string) => { // 递归查找需要展开的菜单项的 key。
         const result: string[] = [];
         let isFind = false;
         const backtrack = (item: RouteRecordRaw, keys: string[]) => {
@@ -69,8 +79,11 @@
         });
         return result;
       };
-      listenerRouteChange((newRoute) => {
+      listenerRouteChange((newRoute) => { // 监听路由变化，并更新菜单的展开状态和选中状态。
+        console.log('newRoute',JSON.stringify(newRoute))
+
         const { requiresAuth, activeMenu, hideInMenu } = newRoute.meta;
+        console.log('requiresAuth, activeMenu, hideInMenu',requiresAuth, activeMenu, hideInMenu )
         if (requiresAuth && (!hideInMenu || activeMenu)) {
           const menuOpenKeys = findMenuOpenKeys(
             (activeMenu || newRoute.name) as string
@@ -84,12 +97,12 @@
           ];
         }
       }, true);
-      const setCollapse = (val: boolean) => {
+      const setCollapse = (val: boolean) => { // 设置菜单的折叠状态，只在桌面设备上更新 appStore 中的设置。
         if (appStore.device === 'desktop')
           appStore.updateSettings({ menuCollapse: val });
       };
 
-      const renderSubMenu = () => {
+      const renderSubMenu = () => { // 递归渲染子菜单，基于 menuTree 数据。
         function travel(_route: RouteRecordRaw[], nodes = []) {
           if (_route) {
             _route.forEach((element) => {
@@ -125,8 +138,9 @@
         return travel(menuTree.value);
       };
 
-      return () => (
-        <a-menu
+      return () => ( 
+        // 使用 a-menu 组件来渲染菜单。通过 mode、v-model:collapsed、v-model:open-keys、selected-keys 等属性来控制菜单的显示和行为。
+        <a-menu 
           mode={topMenu.value ? 'horizontal' : 'vertical'}
           v-model:collapsed={collapsed.value}
           v-model:open-keys={openKeys.value}

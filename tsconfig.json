@@ -5,10 +5,12 @@
     "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
+    "jsxImportSource": "@vue/jsx-runtime",
+    "types": ["vite/client", "vue"],
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]
     },

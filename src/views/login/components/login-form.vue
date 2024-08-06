@@ -56,32 +56,40 @@ const errorMessage = ref('');
 const { loading, setLoading } = useLoading();
 const userStore = useUserStore();
 
-const loginConfig = useStorage('login-config', {
-  rememberPassword: true,
+
+// useStorage用于在本地存储中管理数据。它可能将数据持久化到浏览器的 localStorage 或 sessionStorage 中。
+const loginConfig = useStorage('login-config',// 'login-config' 是存储在本地存储中的键名，用于标识这个配置项。
+{ rememberPassword: true, // { rememberPassword: true, username: 'admin', password: 'admin' } 是默认值，如果本地存储中没有相应的值，则使用这些默认值。
   username: 'admin', // 演示默认值
   password: 'admin', // demo default value
 });
+
 const userInfo = reactive({
   username: loginConfig.value.username,
   password: loginConfig.value.password,
 });
 
 const handleSubmit = async ({
-  errors,
-  values,
+  errors, // 表单校验的错误信息，类型为 Record<string, ValidatedError> | undefined。
+  values, // 表单提交的数据，类型为 Record<string, any>。
 }: {
   errors: Record<string, ValidatedError> | undefined;
   values: Record<string, any>;
 }) => {
-  console.log("开始登录",errors,values)
-  if (loading.value) return;
-  if (!errors) {
-    setLoading(true);
+  console.log("开始登录", errors, values)
+  if (loading.value) return; // 如果 loading.value 为 true，则直接返回，避免重复提交。
+  if (!errors) { // 如果 errors 为 undefined，即没有错误，则继续处理提交
+    setLoading(true);  // 调用 setLoading(true)，表示正在处理登录。
     try {
       await userStore.login(values as LoginData);
 
-      console.log(' router.currentRoute.value.query;', router.currentRoute.value.query)
-      const { redirect, ...othersQuery } = router.currentRoute.value.query;
+      const { redirect, ...othersQuery } = router.currentRoute.value.query; // 获取当前路由的查询参数，并尝试重定向到 redirect 或默认页面 'Workplace'。
+
+      console.log('登录后->router.currentRoute.value.query;', router.currentRoute.value.query)
+      console.log('登录后解包->redirect', redirect)
+      console.log('登录后解包->othersQuery', othersQuery)
+
+      // router.push 用于页面导航，跳转到新的路由。 获取当前路由的查询参数后，并尝试重定向到 redirect 或默认页面 'Workplace'。
       router.push({
         name: (redirect as string) || 'Workplace',
         query: {
@@ -93,15 +101,20 @@ const handleSubmit = async ({
       const { username, password } = values;
       // 实际生产环境需要进行加密存储。
       // The actual production environment requires encrypted storage.
+      // 根据 rememberPassword 的值，更新 loginConfig 中的用户名和密码。注意这里的密码存储方式只是演示，生产环境中需要加密存储。
       loginConfig.value.username = rememberPassword ? username : '';
       loginConfig.value.password = rememberPassword ? password : '';
     } catch (err) {
+      // 如果登录过程中发生错误，将错误信息赋值给 errorMessage。
       errorMessage.value = (err as Error).message;
     } finally {
+      //  登录处理完成后，无论成功还是失败，都调用 setLoading(false)，重置加载状态。
       setLoading(false);
     }
   }
 };
+
+// 更新 loginConfig.value.rememberPassword 的值
 const setRememberPassword = (value: boolean) => {
   loginConfig.value.rememberPassword = value;
 };

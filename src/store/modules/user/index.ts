@@ -13,6 +13,9 @@ import useAppStore from '../app';
 
 import imageUrl from '@/assets/images/avatar.jpg';
 
+
+// 这个 Pinia store 主要用于管理用户相关的状态和操作，包括用户的基本信息、角色切换、登录、登出等。
+// 通过 actions 方法提供了对用户状态的管理和异步操作的处理，同时提供了 getters 用于获取用户信息。
 const useUserStore = defineStore('user', {
   state: (): UserState => ({
     name: undefined,
@@ -33,6 +36,7 @@ const useUserStore = defineStore('user', {
     role: '',
   }),
 
+  // 返回当前用户状态的一个拷贝。
   getters: {
     userInfo(state: UserState): UserState {
       return { ...state };
@@ -40,30 +44,31 @@ const useUserStore = defineStore('user', {
   },
 
   actions: {
+    // 切换用户角色，返回一个 Promise 以便异步处理。
     switchRoles() {
       return new Promise((resolve) => {
         this.role = this.role === 'user' ? 'admin' : 'user';
         resolve(this.role);
       });
     },
-    // Set user's information
+    // Set user's information 更新用户信息，通过 this.$patch 更新部分状态。
     setInfo(partial: Partial<UserState>) {
       this.$patch(partial);
     },
 
-    // Reset user's information
+    // Reset user's information 重置用户信息，通过 this.$reset 清除状态。
     resetInfo() {
       this.$reset();
     },
 
-    // Get user's information
+    // Get user's information  异步获取用户信息并更新状态。
     async info() {
       const res = await getUserInfo();
-
+      console.log('获取用户信息成功',JSON.stringify(res.data))
       this.setInfo(res.data);
     },
 
-    // Login
+    // Login 异步用户登录，成功后设置 token，并将用户角色保存到 localStorage。如果登录失败，清除 token 并抛出错误。
     async login(loginForm: LoginData) {
       try {
         console.log('登录loginForm',loginForm.username)
@@ -78,6 +83,7 @@ const useUserStore = defineStore('user', {
         throw err;
       }
     },
+    // 登出后的回调函数，重置用户信息，清除 token，移除路由监听器，并清空应用的菜单。
     logoutCallBack() {
       const appStore = useAppStore();
       this.resetInfo();
@@ -85,7 +91,7 @@ const useUserStore = defineStore('user', {
       removeRouteListener();
       appStore.clearServerMenu();
     },
-    // Logout
+    // Logout 异步用户登出，成功后执行 logoutCallBack。
     async logout() {
       try {
         await userLogout();
