@@ -39,6 +39,25 @@ export function req_router_manage_list_router_api(listQuery: object) {
     });
 }
 
+
+// 添加菜单
+export function req_router_manage_create_router_api(data: object) {
+    return axios.post('/api/system_manage/router/', data);
+}
+
+
+// 编辑菜单
+export function req_router_manage_update_router_api(id: number,data: object) {
+    return axios.put(`/api/system_manage/router/${id}/`, data);
+}
+
+
+
+// 删除一个菜单
+export function req_router_manage_delete_router_api(id: number) {
+    return axios.delete(`/api/system_manage/router/${id}/`);
+}
+
 // // 组织类型下拉
 // export function req_org_manage_org_type_api(listQuery: object) {
 //     return axios.get('/api/system_manage/org_type/', {
