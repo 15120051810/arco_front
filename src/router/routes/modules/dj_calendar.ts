@@ -9,7 +9,7 @@ const LIST: AppRouteRecordRaw = {
         locale: 'menu.dj_calendar',
         requiresAuth: true,
         icon: 'icon-list',
-        order: 2,
+        order: 5000,
     },
     children: [
         {

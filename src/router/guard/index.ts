@@ -60,7 +60,7 @@ function setupPageGuard(router: Router) {
 
 // 定义了一个名为 createRouteGuard 的函数，用于创建路由守卫。它接收一个 Router 类型的参数 router，表示路由实例。
 export default function createRouteGuard(router: Router) {
-  console.log("设置路由守卫",router)
+  console.log("添加路由守卫",router)
   // 依次调用了设置页面守卫、用户登录信息守卫和权限守卫的函数，以完成路由守卫的设置。
   setupPageGuard(router);
   setupUserLoginInfoGuard(router);  

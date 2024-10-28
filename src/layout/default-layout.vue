@@ -1,5 +1,10 @@
 <template>
+  <!-- 你的代码是一个使用 Vue 3 的布局结构，其中包含了 NavBar、Menu、TabBar 和 Footer 等组件。
+   整个布局支持响应式设计，并且根据 appStore 中的状态动态调整菜单、侧边栏和内容的显示与隐藏。 -->
+   
+
   <a-layout class="layout" :class="{ mobile: appStore.hideMenu }">
+    <!-- a-layout 是主布局容器，包含了导航栏、侧边栏、内容区和页脚 -->
     <div v-if="navbar" class="layout-navbar">
       <NavBar />
     </div>
@@ -35,7 +40,8 @@
         <a-layout class="layout-content" :style="paddingStyle">
           <TabBar v-if="appStore.tabBar" />
           <a-layout-content>
-            <PageLayout />
+            <!-- 这个组件里有viewroute 组件的占位符，匹配到啥路由就呈现 -->
+            <PageLayout /> 
           </a-layout-content>
           <Footer v-if="footer" />
         </a-layout>

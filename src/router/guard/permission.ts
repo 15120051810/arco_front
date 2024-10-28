@@ -31,7 +31,7 @@ export default function setupPermissionGuard(router: Router) {
         !appStore.appAsyncMenus.length &&
         !WHITE_LIST.find((el) => el.name === to.name)
       ) {
-        console.log(`访问的是${to}`,'获取服务器菜单')
+        console.log(`访问的是`,to.name,'开始获取服务器菜单')
         await appStore.fetchServerMenuConfig();
       }
       const serverMenuConfig = [...appStore.appAsyncMenus, ...WHITE_LIST]; // 将从服务器获取的菜单配置和白名单合并

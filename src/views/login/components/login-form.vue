@@ -60,8 +60,8 @@ const userStore = useUserStore();
 // useStorage用于在本地存储中管理数据。它可能将数据持久化到浏览器的 localStorage 或 sessionStorage 中。
 const loginConfig = useStorage('login-config',// 'login-config' 是存储在本地存储中的键名，用于标识这个配置项。
 { rememberPassword: true, // { rememberPassword: true, username: 'admin', password: 'admin' } 是默认值，如果本地存储中没有相应的值，则使用这些默认值。
-  username: 'admin', // 演示默认值
-  password: 'admin', // demo default value
+  username: 'liuxiangyu', // 演示默认值
+  password: 'Miao13456', // demo default value
 });
 
 const userInfo = reactive({

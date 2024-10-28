@@ -67,6 +67,7 @@ const useAppStore = defineStore('app', {
           closable: true,
         });
         const { data } = await getMenuList();
+        console.log('获取服务器菜单成功->',JSON.stringify(data))
         this.serverMenu = data;
         notifyInstance = Notification.success({
           id: 'menuNotice',

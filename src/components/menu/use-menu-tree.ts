@@ -15,8 +15,11 @@ export default function useMenuTree() {
   const appStore = useAppStore(); //  通过 useAppStore 获取 Pinia 中的 app store。
   const appRoute = computed(() => { //  是一个计算属性，根据 appStore.menuFromServer 的值返回从服务端或者本地 获取菜单数据
     if (appStore.menuFromServer) {
+      console.log('从后端获取菜单树-->',appStore.appAsyncMenus)
+      console.log('后端菜单 追加 前端菜单')
       return appStore.appAsyncMenus;
     }
+    console.log('从前端获取菜单树-->',appClientMenus)
     return appClientMenus;
   });
   // 计算属性生成最终的菜单树。

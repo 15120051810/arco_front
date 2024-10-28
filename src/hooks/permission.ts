@@ -17,16 +17,14 @@ export default function usePermission() {
 
     // 用于检查用户是否有权限访问指定的路由。它接收一个路由对象作为参数，
     // 并根据路由的元信息（meta）中定义的角色信息进行判断。
-    // 如果路由不需要验证权限（requiresAuth 为 false）
-    // 或用户角色包含在路由允许的角色列表中，则返回 true，
     // 表示用户有权限访问该路由，否则返回 false。
     accessRouter(route: RouteLocationNormalized | RouteRecordRaw) {
-      return (
-        !route.meta?.requiresAuth ||
-        !route.meta?.roles ||
+      return ( 
+        !route.meta?.requiresAuth || // 如果路由不需要验证权限（requiresAuth 为 false）
+        !route.meta?.roles || 
         route.meta?.roles?.includes('*') ||
-        route.meta?.roles?.includes(userStore.role)
-      );
+        route.meta?.roles?.includes(userStore.role) // 或用户角色包含在路由允许的角色列表中，则返回 true，
+      ); 
     },
 
     // 用于查找用户在当前角色下的第一个有权限访问的路由。

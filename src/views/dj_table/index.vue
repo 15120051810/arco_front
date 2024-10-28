@@ -34,6 +34,11 @@
         </Demo7>    
       </a-card>
 
+      <a-card class="my_card" title="表格树">
+        <tableTree>
+        </tableTree>    
+      </a-card>
+
     </a-space>
   </div>
 
@@ -52,6 +57,8 @@ import Demo4 from './components/demo4.vue'
 import Demo5 from './components/demo5.vue'
 import Demo6 from './components/demo6.vue'
 import Demo7 from './components/demo7.vue'
+import tableTree from './components/table_tree.vue'
+
 
 </script>
 

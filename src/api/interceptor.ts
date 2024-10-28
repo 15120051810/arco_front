@@ -22,14 +22,16 @@ axios.interceptors.request.use(
     // Authorization is a custom headers key
     // please modify it according to the actual situation
     const token = getToken();
-    console.log('请求拦截,配置config', config)
+    console.log('请求拦截前,获取token',token)
+    console.log('请求拦截前,配置config', JSON.stringify(config))
 
     if (token) {
       if (!config.headers) {
         config.headers = {};
       }
-      config.headers.Authorization = `JWT ${token}`;
+      config.headers.Authorization = `Bearer ${token}`;
     }
+    console.log('请求拦截,配置后的config', JSON.stringify(config))
     return config;
   },
   (error) => {
@@ -41,7 +43,7 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   (response: AxiosResponse<HttpResponse>) => {
     const res = response.data;
-    console.log('返回信息--->',res)
+    // console.log('返回信息--->',res)
     // if the custom code is not 20000, it is judged as an error.
     // if (res.code !== 20000) {
     //   Message.error({
@@ -71,12 +73,14 @@ axios.interceptors.response.use(
     return res;
   },
   (error) => {
-    let errInfo = ''
+    let errInfo = error.response.data.message;  // 获取错误信息（假设后端返回的 JSON 包含 message 字段）
     let status = error.response.status
-    console.log('请求错误返回状态码', status)
+    console.log('请求错误返回状态码', status,errInfo)
 
     switch (status) {
-
+      case 400:
+        errInfo = '已经具有重名'
+        break;
       case 404:
         errInfo = '请求地址错误'
         break;

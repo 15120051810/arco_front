@@ -8,6 +8,8 @@ import router from './router'; // 导入 Vue Router 实例 router，用于处理
 import store from './store';
 import i18n from './locale';
 import directive from './directive';
+import { Message } from '@arco-design/web-vue';
+
 // import './mock'; // 不要mock
 import App from './App.vue';
 // Styles are imported via arco-plugin. See config/plugin/arcoStyleImport.ts in the directory for details
@@ -23,6 +25,7 @@ app.use(ArcoVueIcon);
 
 // 注册路由
 app.use(router);
+// Message._context = app._context;
 
 app.use(store);
 app.use(i18n);

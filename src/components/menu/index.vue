@@ -15,7 +15,7 @@
   import { listenerRouteChange } from '@/utils/route-listener';
   import { openWindow, regexUrl } from '@/utils';
   import useMenuTree from './use-menu-tree'; // 自定义函数，用于获取菜单树的数据。
-import { join } from 'lodash';
+  import { join } from 'lodash';
 
   export default defineComponent({
     emit: ['collapse'],
@@ -138,7 +138,7 @@ import { join } from 'lodash';
         return travel(menuTree.value);
       };
 
-      return () => ( 
+      return () => (
         // 使用 a-menu 组件来渲染菜单。通过 mode、v-model:collapsed、v-model:open-keys、selected-keys 等属性来控制菜单的显示和行为。
         <a-menu 
           mode={topMenu.value ? 'horizontal' : 'vertical'}

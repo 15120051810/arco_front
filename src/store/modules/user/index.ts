@@ -64,8 +64,9 @@ const useUserStore = defineStore('user', {
     // Get user's information  异步获取用户信息并更新状态。
     async info() {
       const res = await getUserInfo();
-      console.log('获取用户信息成功',JSON.stringify(res.data))
       this.setInfo(res.data);
+      console.log('获取用户信息成功,并更新用户state',JSON.stringify(this.$state))
+
     },
 
     // Login 异步用户登录，成功后设置 token，并将用户角色保存到 localStorage。如果登录失败，清除 token 并抛出错误。

@@ -27,11 +27,11 @@ export default {
   ...localeWorkplace,
   
   'menu.system_manage': '系统管理',
-  'menu.orgs_manage': '组织管理',
-  'menu.users_manage': '用户管理',
-  'menu.roles_manage': '角色管理',
-  'menu.routers_manage': '菜单管理',
-  'menu.apis_manage': '接口管理',
+  'menu.system_manage.orgs_manage': '组织管理',
+  'menu.system_manage.users_manage': '用户管理',
+  'menu.system_manage.roles_manage': '角色管理',
+  'menu.system_manage.routers_manage': '菜单管理',
+  'menu.system_manage.apis_manage': '接口管理',
 
   
   'menu.dj_table':'表格',
@@ -48,13 +48,24 @@ export default {
   'menu.dj_calendar': '日历',
   'menu.dj_calendar.demo': 'Calendar Demo',
 
-  'menu.v3_demos': '案例',
-  'menu.v3_demos.1VModel':'双向绑定值如何更新',
-  'menu.v3_demos.2toRefs':'toRefs和toRef',
-  'menu.v3_demos.RefAndReactive': 'ref和reactive嵌套响应',
-  'menu.v3_demos.JiSuanShuXing':'计算属性',
-  'menu.v3_demos.tongxinDemo.props':'通讯props',
-  'menu.v3_demos.SkickyToTop':'查询固定在顶端',
-  'menu.v3_demos.3DateSelected':'日期选择器'
+  'menu.v3_demos': 'vue3_案例',
+  'menu.v3_demos.1VModel':'1 双向绑定值如何更新',
+  'menu.v3_demos.2toRefs':'2 toRefs和toRef',  
+  'menu.v3_demos.3DateSelected':'3 日期选择器',
+  'menu.v3_demos.4RefTagZuJian':'4 ref绑定标签或者组件',
+  'menu.v3_demos.5RefAndReactive': '5 ref和reactive嵌套响应',
+  'menu.v3_demos.6JiSuanShuXing':'6 计算属性',
+  'menu.v3_demos.7SkickyToTop':'7 查询固定在顶端',
+  'menu.v3_demos.8Form':'8 表单',
+  'menu.v3_demos.9Tree':'9 树组件',
+
+  'menu.v3_demos.tongxun':'通讯',
+  'menu.v3_demos.tongxun.props':'props',
+  'menu.v3_demos.tongxun.emit':'emit',
+
+  'menu.v3_demos.slot':'插槽',
+  'menu.v3_demos.slot.1moren':'默认插槽',
+  'menu.v3_demos.slot.2juming':'具名插槽',
+  'menu.v3_demos.slot.3zuoyongyu':'作用域插槽'
 
 };
