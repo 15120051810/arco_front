@@ -63,6 +63,6 @@ export default function createRouteGuard(router: Router) {
   console.log("添加路由守卫",router)
   // 依次调用了设置页面守卫、用户登录信息守卫和权限守卫的函数，以完成路由守卫的设置。
   setupPageGuard(router);
-  setupUserLoginInfoGuard(router);  
-  setupPermissionGuard(router);
+  setupUserLoginInfoGuard(router);   
+  setupPermissionGuard(router); // 权限 判断 是从哪里获取菜单 并且可以看哪些菜单
 }

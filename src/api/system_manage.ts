@@ -51,12 +51,34 @@ export function req_router_manage_update_router_api(id: number,data: object) {
     return axios.put(`/api/system_manage/router/${id}/`, data);
 }
 
-
-
 // 删除一个菜单
 export function req_router_manage_delete_router_api(id: number) {
     return axios.delete(`/api/system_manage/router/${id}/`);
 }
+
+// 获取角色下拉
+export function req_role_manage_list_role_api(listQuery: object) {
+    return axios.get('/api/system_manage/role/', {
+        params: listQuery
+    });
+}
+
+// 添加角色
+export function req_role_manage_create_role_api(data: object) {
+    return axios.post('/api/system_manage/role/', data);
+}
+
+// 编辑角色
+export function req_role_manage_update_role_api(id: number,data: object) {
+    return axios.put(`/api/system_manage/role/${id}/`, data);
+}
+
+// 删除一个角色
+export function req_role_manage_delete_role_api(id: number) {
+    return axios.delete(`/api/system_manage/role/${id}/`);
+}
+
+
 
 // // 组织类型下拉
 // export function req_org_manage_org_type_api(listQuery: object) {

@@ -31,11 +31,11 @@ const PERMISSION: AppRouteRecordRaw = {
         },
     },
     {
-        path: 'roles_manage',
-        name: 'roles_manage',
-        component: () => import('@/views/system_manage/roles.vue'),
+        path: 'role_manage',
+        name: 'role_manage',
+        component: () => import('@/views/system_manage/role.vue'),
         meta: {
-            locale: 'menu.system_manage.roles_manage',
+            locale: 'menu.system_manage.role_manage',
             requiresAuth: true,
         },
     },
