@@ -28,7 +28,7 @@ export default {
   
   'menu.system_manage': '系统管理',
   'menu.system_manage.orgs_manage': '组织管理',
-  'menu.system_manage.users_manage': '用户管理',
+  'menu.system_manage.user_manage': '用户管理',
   'menu.system_manage.role_manage': '角色管理',
   'menu.system_manage.routers_manage': '菜单管理',
   'menu.system_manage.apis_manage': '接口管理',

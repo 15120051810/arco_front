@@ -134,7 +134,7 @@ const LIST: AppRouteRecordRaw = {
                 {
                     path: 'emit',
                     name: 'Emit',
-                    component: () => import('@/views/v3_demos/tongxun/emit/index.vue'),
+                    component: () => import('@/views/v3_demos/tongxun/emit/parent.vue'),
                     meta: {
                         locale: 'menu.v3_demos.tongxun.emit',
                         requiresAuth: true,

@@ -80,24 +80,24 @@ export function req_role_manage_delete_role_api(id: number) {
 
 
 
-// // 组织类型下拉
-// export function req_org_manage_org_type_api(listQuery: object) {
-//     return axios.get('/api/system_manage/org_type/', {
-//         params: listQuery
-//     });
-// }
+// 获取用户下拉
+export function req_user_manage_list_user_api(listQuery: object) {
+    return axios.get('/api/system_manage/user/', {
+        params: listQuery
+    });
+}
 
-// // 添加组织
-// export function req_org_manage_create_org_api(data: object) {
-//     return axios.post('/api/system_manage/org/', data);
-// }
+// 添加用户
+export function req_user_manage_create_user_api(data: object) {
+    return axios.post('/api/system_manage/user/', data);
+}
 
-// // 编辑组织
-// export function req_org_manage_update_org_api(id: number,data: object) {
-//     return axios.put(`/api/system_manage/org/${id}/`, data);
-// }
+// 编辑用户
+export function req_user_manage_update_user_api(id: number,data: object) {
+    return axios.put(`/api/system_manage/user/${id}/`, data);
+}
 
-// // 删除一个组织
-// export function req_org_manage_delete_org_api(id: number) {
-//     return axios.delete(`/api/system_manage/org/${id}/`);
-// }
+// 删除一个用户
+export function req_user_manage_delete_user_api(id: number) {
+    return axios.delete(`/api/system_manage/user/${id}/`);
+}

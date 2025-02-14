@@ -26,7 +26,7 @@ const PERMISSION: AppRouteRecordRaw = {
         name: 'users_manage',
         component: () => import('@/views/system_manage/users.vue'),
         meta: {
-            locale: 'menu.system_manage.users_manage',
+            locale: 'menu.system_manage.user_manage',
             requiresAuth: true,
         },
     },

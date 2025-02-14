@@ -20,9 +20,9 @@ const loading = ref<boolean>(false)
 const options = reactive({
     tooltip: {
         trigger: 'axis',
-        formatter: function (params) {
+        formatter: function (params:any) {
             let tooltipText = '';
-            params.forEach(function (item) {
+            params.forEach(function (item:any) {
                 console.log('item',item)
                 tooltipText += item.seriesName + ': ' + item.value.toLocaleString() + '<br>';
             });

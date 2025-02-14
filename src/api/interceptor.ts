@@ -79,7 +79,7 @@ axios.interceptors.response.use(
 
     switch (status) {
       case 400:
-        errInfo = '已经具有重名'
+        errInfo = '后端请求出错'
         break;
       case 404:
         errInfo = '请求地址错误'

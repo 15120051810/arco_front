@@ -6,7 +6,6 @@
 
         <template #title>
           <a-button type="primary" @click="addOrgClick" style="margin-right: 20px;">添加组织</a-button>
-          <a-button type="primary">同步组织</a-button>
         </template>
         <template #extra>
           <a-input style="width: 320px;margin-right: 20px;" v-model="listQuery.org_name" placeholder="请输入组织名称"
@@ -279,8 +278,6 @@ const updateOrgClick = async (record, rowIndex) => {
 };
 
 
-
-
 // 删除组织
 const clickDeleteOrg = async (record, rowIndex) => {
   console.log('删除组织名称', record.title, record.id)
@@ -313,7 +310,6 @@ const handleSubmit = async ({ values, errors }) => {
       await req_org_manage_create_org_api(values)
     } else {
       await req_org_manage_update_org_api(updateOrgId.value, values)
-
     }
     Message.info(`${Modaltite.value}成功`)
     // await addOrgClick() // 重新获取组织树
@@ -326,7 +322,8 @@ const handleSubmit = async ({ values, errors }) => {
     // 更新主页组织树 与 modal组织树
     const res = await req_org_manage_org_api()
     addOrgTreeData.value = res
-    if (!listQuery.value.org_name) {orgTreeData.value=res} // 主页没有查询组织名称的时候，在更新主页
+    if (!listQuery.value.org_name) 
+        {orgTreeData.value=res} // 主页没有查询组织名称的时候，在更新主页
   }
 }
 

@@ -6,20 +6,27 @@
         <h4>父给改变我的车Arry：{{ carArry }}</h4>
 
         <button @click="getToy(toy)">玩具给父亲</button>
+        <button @click="changePCar">修改父亲给的玩具</button>
+
     </div>
 </template>
 
-<script setup lang="ts" name="Child">
+<script setup name="Child">
 
-import { ref,onMounted } from "vue";
+import { ref, onMounted, toRefs } from "vue";
 const toy = ref('奥特曼')
 
 const props = defineProps(['car', 'getToy', 'carArry'])
+const { car, carArry } = toRefs(props)
 
-onMounted(()=>{
 
-    console.log('carArry',props.carArry)
-
+onMounted(() => {
+    console.log('carArry', props.carArry)
 })
+
+// 不可以修改父亲给的车
+function changePCar() {
+    car.value = '奔驰喷漆'
+}
 
 </script>

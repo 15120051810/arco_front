@@ -51,7 +51,7 @@ const dateTimeRange = ref([]);
 
 
 const onSelectd = (radioType, dateStr) => {
-    console.log(radioType, dateStr)
+    console.log('onSelectd->选中日期发生改变但组件值未改变',radioType, dateStr)
 }
 
 const radioChange = (v) => {
