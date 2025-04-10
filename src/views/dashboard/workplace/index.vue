@@ -4,19 +4,19 @@
       
       <div class="panel">
         <Banner />
-        <!-- <DataPanel /> -->
-        <!-- <ContentChart /> -->
+        <DataPanel />
+        <ContentChart />
       </div>
       <a-grid :cols="24" :col-gap="16" :row-gap="16" style="margin-top: 16px">
         <a-grid-item
           :span="{ xs: 24, sm: 24, md: 24, lg: 12, xl: 12, xxl: 12 }"
         >
-          <!-- <PopularContent /> -->
+          <PopularContent />
         </a-grid-item>
         <a-grid-item
           :span="{ xs: 24, sm: 24, md: 24, lg: 12, xl: 12, xxl: 12 }"
         >
-          <!-- <CategoriesPercent /> -->
+          <CategoriesPercent />
         </a-grid-item>
       </a-grid>
     
@@ -27,18 +27,18 @@
       <a-grid :cols="24" :row-gap="16">
         <a-grid-item :span="24">
           <div class="panel moduler-wrap">
-            <!-- <QuickOperation />
-            <RecentlyVisited /> -->
+            <QuickOperation />
+            <RecentlyVisited />
           </div>
         </a-grid-item>
         <a-grid-item class="panel" :span="24">
-          <!-- <Carousel /> -->
+          <Carousel />
         </a-grid-item>
         <a-grid-item class="panel" :span="24">
-          <!-- <Announcement /> -->
+          <Announcement />
         </a-grid-item>
         <a-grid-item class="panel" :span="24">
-          <!-- <Docs /> -->
+          <Docs />
         </a-grid-item>
       </a-grid>
     </div>

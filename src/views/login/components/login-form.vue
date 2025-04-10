@@ -40,20 +40,22 @@
 </template>
 
 <script lang="ts" setup>
+const filePath = new URL('', import.meta.url).pathname
+
 import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { Message } from '@arco-design/web-vue';
 import { ValidatedError } from '@arco-design/web-vue/es/form/interface';
-import { useI18n } from 'vue-i18n';
+import { useI18n } from 'vue-i18n'; // 引入 Vue I18n 国际化插件，用于多语言支持。
 import { useStorage } from '@vueuse/core';
 import { useUserStore } from '@/store';
 import useLoading from '@/hooks/loading';
 import type { LoginData } from '@/api/user';
 
 const router = useRouter();
-const { t } = useI18n();
+const { t } = useI18n(); // 获取 $t 方法用于多语言的翻译功能。
 const errorMessage = ref('');
-const { loading, setLoading } = useLoading();
+const { loading, setLoading } = useLoading(); // 使用自定义 hook 获取 loading 状态和设置加载状态的函数 setLoading。
 const userStore = useUserStore();
 
 
@@ -76,7 +78,7 @@ const handleSubmit = async ({
   errors: Record<string, ValidatedError> | undefined;
   values: Record<string, any>;
 }) => {
-  console.log("开始登录", errors, values)
+  console.log(filePath,"开始登录", errors, values)
   if (loading.value) return; // 如果 loading.value 为 true，则直接返回，避免重复提交。
   if (!errors) { // 如果 errors 为 undefined，即没有错误，则继续处理提交
     setLoading(true);  // 调用 setLoading(true)，表示正在处理登录。
@@ -85,9 +87,9 @@ const handleSubmit = async ({
 
       const { redirect, ...othersQuery } = router.currentRoute.value.query; // 获取当前路由的查询参数，并尝试重定向到 redirect 或默认页面 'Workplace'。
 
-      console.log('登录后->router.currentRoute.value.query;', router.currentRoute.value.query)
-      console.log('登录后解包->redirect', redirect)
-      console.log('登录后解包->othersQuery', othersQuery)
+      console.log(filePath,'登录后->router.currentRoute.value.query;', router.currentRoute.value.query)
+      console.log(filePath,'登录后解包->redirect', redirect)
+      console.log(filePath,'登录后解包->othersQuery', othersQuery)
 
       // router.push 用于页面导航，跳转到新的路由。 获取当前路由的查询参数后，并尝试重定向到 redirect 或默认页面 'Workplace'。
       router.push({

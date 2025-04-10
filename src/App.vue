@@ -9,10 +9,13 @@
 </template>
 
 <script lang="ts" setup>
+  const filePath = new URL('', import.meta.url).pathname
+  console.log(filePath,'此文件开始执行.....')
   import { computed } from 'vue';
   import enUS from '@arco-design/web-vue/es/locale/lang/en-us';
   import zhCN from '@arco-design/web-vue/es/locale/lang/zh-cn';
   import GlobalSetting from '@/components/global-setting/index.vue';
+
 
   // useLocale 这个自定义 hook 用来获取当前语言 currentLocale。
   import useLocale from '@/hooks/locale';

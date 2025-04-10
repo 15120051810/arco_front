@@ -1,4 +1,8 @@
 
+const filePath = new URL('', import.meta.url).pathname
+
+console.log(filePath,'此文件开始执行.....')
+
 // 从 Vue Router 中导入 Router 类型，用于定义路由实例的类型。
 import type { Router } from 'vue-router';
 
@@ -9,12 +13,13 @@ import { setRouteEmitter } from '@/utils/route-listener';
 import setupUserLoginInfoGuard from './userLoginInfo';
 import setupPermissionGuard from './permission';
 
+
 // 定义了一个名为 setupPageGuard 的函数，用于设置页面守卫。它接收一个 Router 类型的参数 router，表示路由实例。
 function setupPageGuard(router: Router) {
   // 在路由导航之前注册全局前置守卫。该守卫会在每次路由切换前执行，用于触发路由变化的事件监听器。
   router.beforeEach(async (to) => { 
     
-    // console.log('注册发布订阅-->to',to) // 当前页面路径 http://localhost:6888/login
+    console.log(filePath,'路由守卫1,监听路由是否改变','路由-->to',to) // 当前页面路径 http://localhost:6888/login
     // {
     //   "fullPath": "/login",
     //   "path": "/login",
@@ -58,9 +63,12 @@ function setupPageGuard(router: Router) {
   });
 }
 
+
 // 定义了一个名为 createRouteGuard 的函数，用于创建路由守卫。它接收一个 Router 类型的参数 router，表示路由实例。
 export default function createRouteGuard(router: Router) {
-  console.log("添加路由守卫",router)
+  // debugger; // 代码执行到这会自动在浏览器中断
+
+  console.log(`${filePath} <---路由跳转前，进行三次路由守卫--->`,router)
   // 依次调用了设置页面守卫、用户登录信息守卫和权限守卫的函数，以完成路由守卫的设置。
   setupPageGuard(router);
   setupUserLoginInfoGuard(router);   

@@ -52,6 +52,10 @@
             <a-input v-model="addRoleForm.remarks" placeholder="请输入角色描述..." />
           </a-form-item>
 
+          <a-form-item :style="{ width: '400px' }" field="remarks" label="角色关键字" required>
+            <a-input v-model="addRoleForm.keyword" placeholder="请输入角色关键字..." />
+          </a-form-item>
+
           <a-form-item :style="{ width: '400px' }" field="type" label="角色类型" required>
             <a-radio-group v-model="addRoleForm.type">
               <a-radio :value="0">PC</a-radio>
@@ -106,6 +110,7 @@ const updateRoleId = ref();
 const addRoleForm = reactive({
   name: '',
   remarks: '',
+  keyword:'',
   routers: [],
   type: 0,
 });
@@ -113,6 +118,7 @@ const addRoleForm = reactive({
 const columns = [
   { title: '角色标题', dataIndex: 'name' },
   { title: '角色描述', dataIndex: 'remarks' },
+  { title: '角色关键字', dataIndex: 'keyword' },
   { title: '角色类型', slotName: 'type' },
   { title: '角色权限', slotName: 'permission' },
   { title: '操作', slotName: 'cz' }
@@ -132,6 +138,13 @@ const addRoleClick = async () => {
   Modaltite.value = '添加角色'
   addRoleVisible.value = true;
   routerTreeLoading.value = true;
+
+  addRoleForm.name = ''
+  addRoleForm.remarks = ''
+  addRoleForm.keyword =''
+  addRoleForm.routers = []
+  addRoleForm.type= 0
+
   try {
     const res = await req_router_manage_list_router_api()
     routerTreeData.value = res
@@ -160,6 +173,7 @@ const updateRoleClick = async (record, rowIndex) => {
   addRoleForm.name = record.name;
   addRoleForm.type = record.type;
   addRoleForm.remarks = record.remarks;
+  addRoleForm.keyword = record.keyword;
 
 
   try {

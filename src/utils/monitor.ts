@@ -1,3 +1,6 @@
+const filePath = new URL('', import.meta.url).pathname
+console.log(filePath,'此文件开始执行.....')
+
 import { App, ComponentPublicInstance } from 'vue';
 import axios from 'axios';
 

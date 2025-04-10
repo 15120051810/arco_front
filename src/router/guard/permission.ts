@@ -1,5 +1,7 @@
 // 这段代码是一个 Vue Router 的权限守卫（Permission Guard）设置函数 setupPermissionGuard 的实现。
 // 这个函数用于处理应用程序中的路由访问权限，确保用户只能访问他们有权限查看的路由。
+const filePath = new URL('', import.meta.url).pathname + '路由守卫3'
+console.log(filePath,'开始整理路由')
 
 
 import type { Router, RouteRecordNormalized } from 'vue-router';
@@ -19,10 +21,13 @@ export default function setupPermissionGuard(router: Router) {
     const userStore = useUserStore(); // 用于获取用户的状态，例如用户角色。
     const Permission = usePermission(); // 用于处理权限相关的逻辑。
 
-    const permissionsAllow = Permission.accessRouter(to); // 通过 Permission.accessRouter(to) 方法检查目标路由是否被允许访问。这个方法根据用户的角色和权限配置来决定是否允许访问目标路由。
+    console.log(filePath,'appStore userStore 两大Store初始化成功，Permission对象也初始化成功')
+    console.log(filePath,'Permission对象 包含两个方法 accessRouter方法 和 findFirstPermissionRoute方法')
 
-    console.log('开始判断是否从服务器获取菜单路由',appStore.menuFromServer)
-    console.log('准备去的路由路径名称->to.name',to.name,'是否有权限',permissionsAllow)
+    // 通过 Permission.accessRouter(to) 方法检查目标路由是否被允许访问。这个方法根据用户的角色和权限配置来决定是否允许访问目标路由。
+    const permissionsAllow = Permission.accessRouter(to); 
+    // console.log(filePath,'准备去的路由路径名称->to.name',to.name,'是否有权限',permissionsAllow)
+    console.log(filePath,'开始判断是否从服务器获取菜单路由',appStore.menuFromServer)
 
     if (appStore.menuFromServer) { // 如果应用程序已经从服务器获取了菜单配置
 
@@ -31,7 +36,7 @@ export default function setupPermissionGuard(router: Router) {
         !appStore.appAsyncMenus.length &&
         !WHITE_LIST.find((el) => el.name === to.name)
       ) {
-        console.log(`访问的是`,to.name,'开始获取服务器菜单')
+        console.log(filePath,'访问的是',to.name,'开始获取服务器菜单')
         await appStore.fetchServerMenuConfig();
       }
       const serverMenuConfig = [...appStore.appAsyncMenus, ...WHITE_LIST]; // 将从服务器获取的菜单配置和白名单合并
@@ -53,8 +58,10 @@ export default function setupPermissionGuard(router: Router) {
       } else next(NOT_FOUND);
     } else {
       // 应用程序 没有从服务端获取了菜单配置，执行该分支。
+      console.log(filePath,'没有从服务端获取了菜单配置,并且有访问权限,直接next放行')
       if (permissionsAllow) next();
       else {
+        console.log(filePath,'没有从服务端获取了菜单配置,并且没有有访问权限,直接调用Permission.findFirstPermissionRoute函数，找出第一个有权限的路由，没有找到就跳到NOT_FOUND')
         const destination =
           Permission.findFirstPermissionRoute(appRoutes, userStore.role) ||
           NOT_FOUND;

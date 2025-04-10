@@ -1,4 +1,7 @@
 // main.ts 这段代码是 Vue 3 应用程序的入口文件，负责创建和配置 Vue 应用实例。以下是对这段代码的详细解释：
+const filePath = new URL('', import.meta.url).pathname
+
+console.log(filePath,'此文件开始执行')
 
 import { createApp } from 'vue'; // 从 Vue 库中导入 createApp 函数，用于创建 Vue 应用实例。
 import ArcoVue from '@arco-design/web-vue'; //  导入 Arco Design 的 Vue 组件库 ArcoVue。
@@ -18,12 +21,14 @@ import App from './App.vue';
 import '@/assets/style/global.less';
 import '@/api/interceptor';
 
+
 const app = createApp(App);
 
 app.use(ArcoVue, {});
 app.use(ArcoVueIcon);
 
 // 注册路由
+console.log(filePath,'开始注册路由')
 app.use(router);
 // Message._context = app._context;
 

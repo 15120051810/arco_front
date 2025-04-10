@@ -2,6 +2,8 @@
 // 前沿
 // 这段代码配置了 Vue 3 应用的路由，包括设置路由历史记录、路由守卫、进度条等功能。以下是详细解释：
 
+const filePath = new URL('', import.meta.url).pathname
+console.log(filePath,'此文件开始执行.....')
 
 import { createRouter, createWebHistory } from 'vue-router'; // 从 vue-router 导入的函数，用于创建路由实例和配置路由历史记录。
 import NProgress from 'nprogress'; // 从第三方库 nprogress 中导入 NProgress，用于在路由切换时显示进度条。
@@ -40,7 +42,10 @@ const router = createRouter({
     return { top: 0 };
   },
 });
+console.log(`${new URL('', import.meta.url).pathname} 调用自定义的路由守卫函数-->createRouteGuard`)
 
+//  这一行代码的执行时机是在 Vue Router 创建之后，Vue 应用挂载之前，通常是在 router 实例初始化之后立即执行,注册路由守卫。
+// 它的作用是 注册全局路由守卫，例如： 1 跳转前检查权限 (beforeEach) 2  跳转后修改标题 (afterEach) 3 处理进度条
 createRouteGuard(router); // 调用自定义的路由守卫函数，传入路由实例 router，用于添加全局的路由守卫逻辑（例如：权限检查、进度条管理等）。
 
 export default router; // 将创建的路由实例导出，以便在 Vue 应用中使用。

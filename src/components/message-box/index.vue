@@ -1,5 +1,6 @@
 <template>
   <a-spin style="display: block" :loading="loading">
+    <!-- 通过 a-tabs 展示消息、通知、待办三种类型的消息（message, notice, todo）。 -->
     <a-tabs v-model:activeKey="messageType" type="rounded" destroy-on-hide>
       <a-tab-pane v-for="item in tabList" :key="item.key">
         <template #title>

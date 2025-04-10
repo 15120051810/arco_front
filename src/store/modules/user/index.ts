@@ -13,6 +13,7 @@ import useAppStore from '../app';
 
 import imageUrl from '@/assets/images/avatar.jpg';
 
+const filePath = new URL('', import.meta.url).pathname
 
 // 这个 Pinia store 主要用于管理用户相关的状态和操作，包括用户的基本信息、角色切换、登录、登出等。
 // 通过 actions 方法提供了对用户状态的管理和异步操作的处理，同时提供了 getters 用于获取用户信息。
@@ -65,18 +66,17 @@ const useUserStore = defineStore('user', {
     async info() {
       const res = await getUserInfo();
       this.setInfo(res.data);
-      console.log('获取用户信息成功,并更新用户state',JSON.stringify(this.$state))
-
+      console.log(filePath, '获取用户信息成功,并更新用户state', JSON.stringify(this.$state))
     },
 
     // Login 异步用户登录，成功后设置 token，并将用户角色保存到 localStorage。如果登录失败，清除 token 并抛出错误。
     async login(loginForm: LoginData) {
       try {
-        console.log('登录loginForm',loginForm.username)
+        console.log(filePath,'登录loginForm',loginForm.username)
 
         const res = await userLogin(loginForm);
-        console.log('登录返回结果',res)
-        window.localStorage.setItem('userRole', loginForm.username);
+        console.log(filePath,'登录返回结果',res)
+        window.localStorage.setItem('username', loginForm.username);
       
         setToken(res.data.token);
       } catch (err) {

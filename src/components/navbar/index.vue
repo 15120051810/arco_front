@@ -1,4 +1,12 @@
 <template>
+  <!-- 
+   
+  整体结构
+    <div class="navbar"> 是导航栏的容器，分为三部分：
+
+    左侧 (.left-side)： 显示 Logo 和标题，移动端会有折叠菜单按钮。
+    中间 (.center-side)： 只有在 topMenu 模式下才会显示 Menu 组件（用于展示菜单）。
+    右侧 (.right-side)： 包含一系列功能按钮，如搜索、语言切换、主题切换、消息通知、全屏、设置、用户操作等。-->
   <div class="navbar">
     <div class="left-side">
       <a-space>
@@ -19,12 +27,14 @@
         />
       </a-space>
     </div>
+    <!-- 只有在 topMenu 为 true 时，才会显示 Menu 组件，负责导航菜单的渲染。 -->
     <div class="center-side">
       <Menu v-if="topMenu" />
     </div>
     <ul class="right-side">
       <li>
         <a-tooltip :content="$t('settings.search')">
+          <!-- 搜索 -->
           <a-button class="nav-btn" type="outline" :shape="'circle'">
             <template #icon>
               <icon-search />
@@ -32,6 +42,7 @@
           </a-button>
         </a-tooltip>
       </li>
+      <!-- 切换语言 -->
       <li>
         <a-tooltip :content="$t('settings.language')">
           <a-button
@@ -61,6 +72,7 @@
           </template>
         </a-dropdown>
       </li>
+      <!-- 切换暗黑主题 -->
       <li>
         <a-tooltip
           :content="
@@ -82,10 +94,13 @@
           </a-button>
         </a-tooltip>
       </li>
+      <!-- 消息通知 -->
       <li>
         <a-tooltip :content="$t('settings.navbar.alerts')">
           <div class="message-box-trigger">
-            <a-badge :count="9" dot>
+            <!-- 会标显示 有dot就只显示小红点，count数字就不起作用了-->
+             <!-- 点击按钮后，调用 setPopoverVisible 方法，触发 a-popover 弹出 message-box 组件。 -->
+            <a-badge :count="2" dot>
               <a-button
                 class="nav-btn"
                 type="outline"
@@ -236,6 +251,11 @@
   };
   const refBtn = ref();
   const triggerBtn = ref();
+
+  // 1 点击 a-button 按钮（小铃铛图标），触发 @click="setPopoverVisible" 事件。
+  // 2 这个方法的作用是手动触发 refBtn 元素的 click 事件，而 refBtn 其实是 a-popover 组件内的一个 <div ref="refBtn" class="ref-btn"></div>。
+  // 3 等效于点击了 a-popover 组件的触发元素（虽然 trigger="click" 但没有默认触发器，而是通过 refBtn 手动触发）。
+  // 4 a-popover 组件接收到点击事件后，弹出 message-box 组件，从而显示消息通知。
   const setPopoverVisible = () => {
     const event = new MouseEvent('click', {
       view: window,

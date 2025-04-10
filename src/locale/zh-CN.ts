@@ -38,8 +38,8 @@ export default {
   'menu.dj_table.practice': 'table Demo',
 
 
-  'menu.dj_echarts': 'Echarts',
-  'menu.dj_echarts.demo': 'echarts Demo',
+  'menu.echarts': 'Echarts',
+  'menu.echarts.demo': 'echarts Demo',
 
 
   'menu.dj_list': '列表',

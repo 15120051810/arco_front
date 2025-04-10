@@ -85,9 +85,11 @@
 
           <a-divider orientation="center">Correlation</a-divider>
 
-          <a-form-item :style="{ width: '400px' }" field="parent" label="父菜单名称" required>
+          <!-- :tree-props="{'default-expand-all':false}" 树层级不展开 -->
+          <a-form-item :style="{ width: '400px' }" field="parent" label="父菜单名称">
             <a-tree-select :data="addRouterTreeData" v-model="addRouterForm.parent" :loading="addRouterLoading"
               :fieldNames="{ key: 'id', title: 'title', children: 'children' }" :filter-tree-node="filterTreeNode"
+              :tree-props="{'default-expand-all':false}"
               allow-search placeholder="Please select ..." @change="addSelectRouter" style="width: 300px">
             </a-tree-select>
           </a-form-item>

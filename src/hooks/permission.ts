@@ -1,3 +1,6 @@
+
+const filePath = new URL('', import.meta.url).pathname
+console.log(filePath,'此文件开始执行.....')
 import { RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
 import { useUserStore } from '@/store';
 
@@ -19,12 +22,14 @@ export default function usePermission() {
     // 并根据路由的元信息（meta）中定义的角色信息进行判断。
     // 表示用户有权限访问该路由，否则返回 false。
     accessRouter(route: RouteLocationNormalized | RouteRecordRaw) {
-      return ( 
+      const res =  ( 
         !route.meta?.requiresAuth || // 如果路由不需要验证权限（requiresAuth 为 false）
         !route.meta?.roles || 
         route.meta?.roles?.includes('*') ||
         route.meta?.roles?.includes(userStore.role) // 或用户角色包含在路由允许的角色列表中，则返回 true，
       ); 
+      console.log(filePath,'开始判断要跳转路由的meta信息',JSON.stringify(route.meta),'是否有跳转权限',res)
+      return res
     },
 
     // 用于查找用户在当前角色下的第一个有权限访问的路由。

@@ -3,16 +3,18 @@
     v-if="renderChart"
     :option="options"
     :autoresize="autoResize"
+    :theme="chartTheme"
     :style="{ width, height }"
   />
 </template>
 
 <script lang="ts" setup>
-  import { ref, nextTick } from 'vue';
-  import VCharts from 'vue-echarts';
+import { ref, nextTick, computed } from 'vue';
+import VCharts from 'vue-echarts';
   // import { useAppStore } from '@/store';
 
-  defineProps({
+const props = defineProps({
+    id: String,
     options: {
       type: Object,
       default() {
@@ -31,6 +33,10 @@
       type: String,
       default: '100%',
     },
+    theme: {
+        type: String,
+        default: '',  // 默认主题为空
+    },
   });
   // const appStore = useAppStore();
   // const theme = computed(() => {
@@ -46,6 +52,10 @@
     // 可能会触发某些逻辑，导致图表被渲染或重新渲染。
     renderChart.value = true;
   });
+
+  const chartTheme = computed(() => {
+    return props.theme || 'macarons'; // 如果未指定主题，则使用 'macarons'
+});
 </script>
 
 <style scoped lang="less"></style>
