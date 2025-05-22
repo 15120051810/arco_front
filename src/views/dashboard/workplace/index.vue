@@ -3,11 +3,12 @@
     <div class="left-side">
       
       <div class="panel">
-        <Banner />
-        <DataPanel />
-        <ContentChart />
+        我是工作台
+        <!-- <Banner /> -->
+        <!-- <DataPanel /> -->
+        <!-- <ContentChart /> -->
       </div>
-      <a-grid :cols="24" :col-gap="16" :row-gap="16" style="margin-top: 16px">
+      <!-- <a-grid :cols="24" :col-gap="16" :row-gap="16" style="margin-top: 16px">
         <a-grid-item
           :span="{ xs: 24, sm: 24, md: 24, lg: 12, xl: 12, xxl: 12 }"
         >
@@ -18,12 +19,12 @@
         >
           <CategoriesPercent />
         </a-grid-item>
-      </a-grid>
+      </a-grid> -->
     
     
     </div>
 
-    <div class="right-side">
+    <!-- <div class="right-side">
       <a-grid :cols="24" :row-gap="16">
         <a-grid-item :span="24">
           <div class="panel moduler-wrap">
@@ -41,7 +42,7 @@
           <Docs />
         </a-grid-item>
       </a-grid>
-    </div>
+    </div> -->
   </div>
 </template>
 

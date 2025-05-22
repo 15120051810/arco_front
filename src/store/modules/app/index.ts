@@ -6,6 +6,7 @@ import defaultSettings from '@/config/settings.json'; // 从配置文件导入�
 import { getMenuList } from '@/api/user'; // 从 API 模块导入，用于获取菜单列表的函数
 import { AppState } from './types'; // 从 types 模块导入，用于定义应用状态的类型。
 
+const filePath = new URL('', import.meta.url).pathname
 
 // 这个 Pinia store 主要用于管理应用的全局状态，包括应用设置、设备类型、菜单数据等。
 // 通过定义 getters 和 actions，可以方便地获取状态和进行状态更新。
@@ -28,6 +29,7 @@ const useAppStore = defineStore('app', {
     },
     // 返回服务器菜单数据，类型为 RouteRecordNormalized[]。
     appAsyncMenus(state: AppState): RouteRecordNormalized[] {
+      console.log(filePath, '获取服务端菜单')
       return state.serverMenu as unknown as RouteRecordNormalized[];
     },
   },
@@ -66,8 +68,9 @@ const useAppStore = defineStore('app', {
           content: 'loading',
           closable: true,
         });
-        const { data } = await getMenuList();
-        console.log('获取服务器菜单成功->',JSON.stringify(data))
+        const data:any = await getMenuList();
+        
+        console.log(filePath,'获取服务器菜单成功->',data,JSON.stringify(data))
         this.serverMenu = data;
         notifyInstance = Notification.success({
           id: 'menuNotice',

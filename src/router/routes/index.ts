@@ -1,11 +1,10 @@
 // 前沿 
 // 这段代码用于动态导入和格式化应用路由模块，并将它们组织成 RouteRecordNormalized[] 类型的数组。以下是详细解释：
-
-// 从 Vue Router 中导入 RouteRecordNormalized 类型，用于表示标准化的路由记录。
-import type { RouteRecordNormalized } from 'vue-router';
 const filePath = new URL('', import.meta.url).pathname 
 console.log(filePath,'此文件开始执行.....')
 
+// 从 Vue Router 中导入 RouteRecordNormalized 类型，用于表示标准化的路由记录。
+import type { RouteRecordNormalized } from 'vue-router';
 
 // import.meta.glob : Vite 特性，用于动态导入符合指定模式的所有模块。
 // 使用 import.meta.glob 方法动态导入位于 ./modules 目录下的所有 .ts 文件，并将结果存储在 modules 变量中。{ eager: true } 参数表示在应用启动时立即执行导入，而不是等到需要时再导入。

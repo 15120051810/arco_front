@@ -7,13 +7,17 @@
 
 
 <script lang="tsx">
+  const filePath = new URL('', import.meta.url).pathname
+  console.log(filePath,'此文件开始执行....')
+
   import { defineComponent, ref, h, compile, computed } from 'vue';
   import { useI18n } from 'vue-i18n';
-  import { useRoute, useRouter, RouteRecordRaw } from 'vue-router'; // 获取 Vue Router 的路由实例和当前路由信息。
-  import type { RouteMeta } from 'vue-router';
+  // Vue Router 中的钩子，用于获取当前路由信息和操作路由跳转。RouteRecordRaw Vue Router 中的路由记录类型，定义路由的结构。
+  import { useRoute, useRouter, RouteRecordRaw } from 'vue-router'; 
+  import type { RouteMeta } from 'vue-router'; // RouteMeta: 路由元信息类型，包含路由的自定义配置。
   import { useAppStore } from '@/store';
-  import { listenerRouteChange } from '@/utils/route-listener';
-  import { openWindow, regexUrl } from '@/utils';
+  import { listenerRouteChange } from '@/utils/route-listener'; // listenerRouteChange: 用于监听路由变化，执行相应的处理函数。
+  import { openWindow, regexUrl } from '@/utils'; // openWindow 和 regexUrl: 实用工具函数，用于处理外部链接打开和 URL 校验。
   import useMenuTree from './use-menu-tree'; // 自定义函数，用于获取菜单树的数据。
   import { join } from 'lodash';
 
@@ -80,10 +84,10 @@
         return result;
       };
       listenerRouteChange((newRoute) => { // 监听路由变化，并更新菜单的展开状态和选中状态。
-        console.log('newRoute',JSON.stringify(newRoute))
+        console.log(filePath,'newRoute',JSON.stringify(newRoute))
 
         const { requiresAuth, activeMenu, hideInMenu } = newRoute.meta;
-        console.log('requiresAuth, activeMenu, hideInMenu',requiresAuth, activeMenu, hideInMenu )
+        console.log(filePath,'requiresAuth, activeMenu, hideInMenu',requiresAuth, activeMenu, hideInMenu )
         if (requiresAuth && (!hideInMenu || activeMenu)) {
           const menuOpenKeys = findMenuOpenKeys(
             (activeMenu || newRoute.name) as string

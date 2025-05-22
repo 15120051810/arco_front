@@ -18,7 +18,7 @@ const DASHBOARD: AppRouteRecordRaw = {
   children: [ // children 定义了 dashboard 路由的子路由。
     {
       path: 'workplace',
-      name: 'Workplace',
+      name: 'workplace',
       component: () => import('@/views/dashboard/workplace/index.vue'), //  子路由 workplace 懒加载了对应的视图组件
       meta: {
         locale: 'menu.dashboard.workplace',

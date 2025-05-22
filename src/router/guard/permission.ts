@@ -12,6 +12,24 @@ import { useUserStore, useAppStore } from '@/store';
 import { appRoutes } from '../routes';
 import { WHITE_LIST, NOT_FOUND } from '../constants';
 
+// {
+//   "theme": "light",
+//   "colorWeak": false,
+//   "navbar": true,
+//   "menu": true,
+//   "topMenu": false,
+//   "hideMenu": false,
+//   "menuCollapse": false,
+//   "footer": true,
+//   "themeColor": "#165DFF",
+//   "menuWidth": 220,
+//   "globalSettings": false,
+//   "device": "desktop",
+//   "tabBar": false,
+//   "menuFromServer": true,
+//   "serverMenu": []
+// }
+
 
 // 该函数接收一个 router 参数，表示 Vue Router 实例，并对其进行配置以实现权限控制。
 export default function setupPermissionGuard(router: Router) {
@@ -26,8 +44,8 @@ export default function setupPermissionGuard(router: Router) {
 
     // 通过 Permission.accessRouter(to) 方法检查目标路由是否被允许访问。这个方法根据用户的角色和权限配置来决定是否允许访问目标路由。
     const permissionsAllow = Permission.accessRouter(to); 
-    // console.log(filePath,'准备去的路由路径名称->to.name',to.name,'是否有权限',permissionsAllow)
-    console.log(filePath,'开始判断是否从服务器获取菜单路由',appStore.menuFromServer)
+    console.log(filePath,'准备去的路由路径名称->to.name',to.name,'是否有权限',permissionsAllow)
+    // console.log(filePath,'开始判断是否从服务器获取菜单路由',appStore.menuFromServer)
 
     if (appStore.menuFromServer) { // 如果应用程序已经从服务器获取了菜单配置
 
@@ -40,6 +58,7 @@ export default function setupPermissionGuard(router: Router) {
         await appStore.fetchServerMenuConfig();
       }
       const serverMenuConfig = [...appStore.appAsyncMenus, ...WHITE_LIST]; // 将从服务器获取的菜单配置和白名单合并
+      console.log(filePath,'serverMenuConfig',JSON.stringify(serverMenuConfig))
 
       let exist = false;
       // 这段代码是用于检查目标路由 (to) 是否存在于 从服务器获取的菜单配置 (serverMenuConfig) 中，并根据权限决定是否允许访问目标路由。如果目标路由存在且权限允许，则允许访问目标路由；否则，重定向到 NOT_FOUND 路由。

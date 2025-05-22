@@ -93,10 +93,12 @@ const handleSubmit = async ({
 
       // router.push 用于页面导航，跳转到新的路由。 获取当前路由的查询参数后，并尝试重定向到 redirect 或默认页面 'Workplace'。
       router.push({
-        name: (redirect as string) || 'Workplace',
+        name: (redirect as string) || 'workplace',
         query: {
           ...othersQuery,
         },
+      }).catch((err) => {
+        console.error('路由跳转失败：', err);
       });
       Message.success(t('login.form.login.success'));
       const { rememberPassword } = loginConfig.value;

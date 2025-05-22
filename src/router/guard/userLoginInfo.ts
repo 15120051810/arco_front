@@ -22,7 +22,7 @@ export default function setupUserLoginInfoGuard(router: Router) {
 
     // debugger;
     if (isLogin()) {
-      console.log(filePath,'用户已登陆')
+      console.log(filePath,'用户已登陆->当前角色',userStore.role)
 
       // 用户登录后
       // 检查用户存储中是否存在用户角色信息。如果存在角色信息，则表示用户已经获取了完整的用户信息，

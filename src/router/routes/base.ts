@@ -1,3 +1,6 @@
+const filePath = new URL('', import.meta.url).pathname 
+console.log(filePath,'此文件开始执行.....')
+
 import type { RouteRecordRaw } from 'vue-router'; // 从 vue-router 导入的类型，用于定义路由记录。
 import { REDIRECT_ROUTE_NAME } from '@/router/constants'; // 导入的常量，用于定义重定向路由的名称。
 
@@ -9,7 +12,7 @@ export const DEFAULT_LAYOUT = () => import('@/layout/default-layout.vue');
 // 路由重定向 ：一个 RouteRecordRaw 对象，定义了路由重定向的主要路由。
 export const REDIRECT_MAIN: RouteRecordRaw = {
   path: '/redirect', // 路由路径为 /redirect。
-  name: 'redirectWrapper', // 路由路径为 /redirect。
+  name: 'redirectWrapper', // 路由名称redirectWrapper
   component: DEFAULT_LAYOUT, //  使用 DEFAULT_LAYOUT 作为主要布局组件。
   meta: { // 路由元数据
     requiresAuth: true, // 表示需要身份验证。

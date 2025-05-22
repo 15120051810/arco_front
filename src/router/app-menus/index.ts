@@ -1,7 +1,7 @@
 
 // 这段代码用于处理和组合应用的路由配置，并生成一个用于客户端菜单的路由列表。以下是详细的解释：
 const filePath = new URL('', import.meta.url).pathname
-console.log(filePath,'开始整理路由')
+console.log(filePath,'此文件开始执行')
 
 
 import { appRoutes, appExternalRoutes } from '../routes'; // 从 ../routes 文件中导入的路由配置。这些配置可能包含应用内部和外部的路由。

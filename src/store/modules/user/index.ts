@@ -66,7 +66,7 @@ const useUserStore = defineStore('user', {
     async info() {
       const res = await getUserInfo();
       this.setInfo(res.data);
-      console.log(filePath, '获取用户信息成功,并更新用户state', JSON.stringify(this.$state))
+      console.log(filePath, '获取用户信息成功,并更新用户state', JSON.stringify(this.$state),this.role)
     },
 
     // Login 异步用户登录，成功后设置 token，并将用户角色保存到 localStorage。如果登录失败，清除 token 并抛出错误。
@@ -77,7 +77,7 @@ const useUserStore = defineStore('user', {
         const res = await userLogin(loginForm);
         console.log(filePath,'登录返回结果',res)
         window.localStorage.setItem('username', loginForm.username);
-      
+        
         setToken(res.data.token);
       } catch (err) {
         clearToken();
@@ -91,6 +91,9 @@ const useUserStore = defineStore('user', {
       clearToken();
       removeRouteListener();
       appStore.clearServerMenu();
+      window.localStorage.clear();  // 清空 所有 的 localStorage 数据
+      // window.localStorage.removeItem('username');
+
     },
     // Logout 异步用户登出，成功后执行 logoutCallBack。
     async logout() {
