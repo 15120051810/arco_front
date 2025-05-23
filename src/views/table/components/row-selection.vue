@@ -2,7 +2,7 @@
 
   <a-card :style="{ width: '100%' }" title="行选择器" :bordered="false">
     <template #extra>
-      <a-button @click="getData">获取数据</a-button>
+      <a-button @click="">获取数据</a-button>
     </template>
     <span>OnlyCurrent: </span>
     <a-switch v-model="rowSelection.onlyCurrent" />

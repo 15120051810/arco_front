@@ -33,7 +33,7 @@ const router = createRouter({
         requiresAuth: false,
       },
     },
-    ...appRoutes, // 导入的应用路由配置
+    ...appRoutes, // 前端静态的 导入的应用路由配置
     ...appExternalRoutes,
     REDIRECT_MAIN, // 路由重定向配置。 访问类似路径会重定向 http://localhost:6888/redirect/123 重定向
     NOT_FOUND_ROUTE, // 访问不存在的路径会 

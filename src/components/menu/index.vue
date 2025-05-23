@@ -1,4 +1,3 @@
-
 <!-- 这段代码是一个 Vue 3 组件的实现，使用 TypeScript 和 JSX（TSX）语法。这个组件是一个侧边菜单栏的实现，具体功能包括：
 
 菜单的展开与折叠：支持在桌面设备上折叠和展开菜单。
@@ -29,6 +28,7 @@
       const router = useRouter();
       const route = useRoute();
       const { menuTree } = useMenuTree();
+      console.log(filePath,'获取到后端的路由树菜单useMenuTree',JSON.stringify(menuTree.value))
       const collapsed = computed({ //计算属性，用于控制菜单的展开和折叠状态。根据 appStore.device 判断是否是桌面设备来决定菜单的折叠状态。
 
         get() {
@@ -111,6 +111,7 @@
           if (_route) {
             _route.forEach((element) => {
               // This is demo, modify nodes as needed
+              // 这个渲染会读取后端配置的信息
               const icon = element?.meta?.icon
                 ? () => h(compile(`<${element?.meta?.icon}/>`))
                 : null;
@@ -164,15 +165,22 @@
 </script>
 
 <style lang="less" scoped>
-  :deep(.arco-menu-inner) {
-    .arco-menu-inline-header {
-      display: flex;
-      align-items: center;
-    }
-    .arco-icon {
-      &:not(.arco-icon-down) {
-        font-size: 18px;
-      }
+:deep(.arco-menu-inner) {
+  .arco-menu-inline-header {
+    display: flex;
+    align-items: center;
+  }
+
+  .arco-icon {
+    &:not(.arco-icon-down) {
+      font-size: 18px;
     }
   }
+}
+
+// 如果没有icon 会太靠后 所以修改这个
+:deep(.arco-menu-indent) {
+  width: 19px !important;
+}
+
 </style>

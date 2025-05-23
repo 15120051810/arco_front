@@ -4,7 +4,7 @@ const filePath = new URL('', import.meta.url).pathname + '路由守卫3'
 console.log(filePath,'开始整理路由')
 
 
-import type { Router, RouteRecordNormalized } from 'vue-router';
+import type { Router, RouteRecordNormalized, RouteRecordRaw } from 'vue-router';
 import NProgress from 'nprogress'; // progress bar
 
 import usePermission from '@/hooks/permission';
@@ -31,6 +31,21 @@ import { WHITE_LIST, NOT_FOUND } from '../constants';
 // }
 
 
+// 把后端菜单结构拍平为路径数组
+function flattenRoutes(routes: any[], basePath = ''): string[] {
+  const result: string[] = [];
+
+  routes.forEach(route => {
+    const fullPath = basePath + route.path;
+    result.push(fullPath);
+
+    if (route.children && route.children.length > 0) {
+      result.push(...flattenRoutes(route.children, fullPath + '/'));
+    }
+  });
+
+  return result;
+}
 // 该函数接收一个 router 参数，表示 Vue Router 实例，并对其进行配置以实现权限控制。
 export default function setupPermissionGuard(router: Router) {
   router.beforeEach(async (to, from, next) => { // router.beforeEach：在每次路由切换之前执行的钩子函数。
@@ -44,21 +59,23 @@ export default function setupPermissionGuard(router: Router) {
 
     // 通过 Permission.accessRouter(to) 方法检查目标路由是否被允许访问。这个方法根据用户的角色和权限配置来决定是否允许访问目标路由。
     const permissionsAllow = Permission.accessRouter(to); 
-    console.log(filePath,'准备去的路由路径名称->to.name',to.name,'是否有权限',permissionsAllow)
+    console.log(filePath,'准备去的路由路径名称->to.name',to.name,'是否有权限,只对权限在前端控制路由树起作用',permissionsAllow)
     // console.log(filePath,'开始判断是否从服务器获取菜单路由',appStore.menuFromServer)
 
     if (appStore.menuFromServer) { // 如果应用程序已经从服务器获取了菜单配置
-
+      const BackendPermissionsAllow = Permission.accessBackendRouter(to)
+      console.log(filePath,'准备去的路由路径名称->to.name，并且从服务器获取的菜单',to.name,'是否有权限',BackendPermissionsAllow)
       // 如果 appStore.appAsyncMenus为空 且目标路由不在 WHITE_LIST 中，则调用 appStore.fetchServerMenuConfig() 方法从服务器获取菜单配置。
       if (
         !appStore.appAsyncMenus.length &&
         !WHITE_LIST.find((el) => el.name === to.name)
       ) {
-        console.log(filePath,'访问的是',to.name,'开始获取服务器菜单')
+        console.log(filePath,'访问的是',to.name,'开始获取服务器菜单' , !appStore.appAsyncMenus.length,!WHITE_LIST.find((el) => el.name === to.name))
         await appStore.fetchServerMenuConfig();
       }
       const serverMenuConfig = [...appStore.appAsyncMenus, ...WHITE_LIST]; // 将从服务器获取的菜单配置和白名单合并
-      console.log(filePath,'serverMenuConfig',JSON.stringify(serverMenuConfig))
+      appStore.serverMenuList = flattenRoutes(serverMenuConfig);
+      // console.log(filePath,'将从服务器获取的菜单配置和白名单合并',JSON.stringify(serverMenuConfig))
 
       let exist = false;
       // 这段代码是用于检查目标路由 (to) 是否存在于 从服务器获取的菜单配置 (serverMenuConfig) 中，并根据权限决定是否允许访问目标路由。如果目标路由存在且权限允许，则允许访问目标路由；否则，重定向到 NOT_FOUND 路由。
@@ -72,7 +89,7 @@ export default function setupPermissionGuard(router: Router) {
           );
         }
       }
-      if (exist && permissionsAllow) {
+      if (exist && BackendPermissionsAllow) {
         next();
       } else next(NOT_FOUND);
     } else {

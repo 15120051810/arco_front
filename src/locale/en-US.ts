@@ -10,7 +10,7 @@ export default {
   'menu.server.dashboard': 'Dashboard-Server',
   'menu.server.workplace': 'Workplace-Server',
   'menu.server.monitor': 'Monitor-Server',
-  'menu.list': 'List',
+  // 'menu.list': 'List',
   'menu.result': 'Result',
   'menu.exception': 'Exception',
   'menu.form': 'Form',
@@ -34,18 +34,18 @@ export default {
   'menu.system_manage.routers_manage': '菜单管理',
   'menu.system_manage.apis_manage': '接口管理',
 
-  'menu.dj_table':'表格练习',
-  'menu.dj_table.practice': '练习场',
+  'menu.table':'表格练习',
+  'menu.table.practice': '练习场',
 
-  'menu.dj_list': 'List',
-  'menu.dj_list.demo1': 'List Demo1',
+  'menu.list': 'List',
+  'menu.list.demo1': 'List Demo1',
   'menu.calendar': 'Calendar',
   'menu.calendar.demo': 'Calendar Demo',
 
-  'menu.v3_demos': '案例',
-  'menu.v3_demos.RefAndReactive': 'ref和reactive嵌套响应',
-  'menu.v3_demos.JiSuanShuXing':'计算属性',
-  'menu.v3_demos.tongxinDemo.props':'通讯props',
-  'menu.v3_demos.SkickyToTop':'查询固定在顶端'
+  'menu.vue3': '案例',
+  'menu.vue3.RefAndReactive': 'ref和reactive嵌套响应',
+  'menu.vue3.JiSuanShuXing':'计算属性',
+  'menu.vue3.tongxinDemo.props':'通讯props',
+  'menu.vue3.SkickyToTop':'查询固定在顶端'
 
 };

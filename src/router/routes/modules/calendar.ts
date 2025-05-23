@@ -2,24 +2,24 @@ import { DEFAULT_LAYOUT } from '../base';
 import { AppRouteRecordRaw } from '../types';
 
 const LIST: AppRouteRecordRaw = {
-    path: '/dj_calendar',
-    name: 'dj_calendar',
+    path: '/calendar',
+    name: 'calendar',
     component: DEFAULT_LAYOUT,
     meta: {
-        locale: 'menu.dj_calendar',
+        locale: 'menu.calendar',
         requiresAuth: true,
-        icon: 'icon-list',
-        order: 5000,
+        // icon: 'icon-list',
+        // order: 5000,
     },
     children: [
         {
             path: 'calendar_demo',  // 不同目录下的子路径name也要不一样
             name: 'calendar_demo',
-            component: () => import('@/views/dj_calendar/index.vue'),
+            component: () => import('@/views/calendar/index.vue'),
             meta: {
-                locale: 'menu.dj_calendar.demo',
+                locale: 'menu.calendar.demo',
                 requiresAuth: true,
-                roles: ['*'],
+                // roles: ['*'],
             },
         },
     ],

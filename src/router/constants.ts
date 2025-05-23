@@ -16,3 +16,13 @@ export const DEFAULT_ROUTE = {
   name: DEFAULT_ROUTE_NAME,
   fullPath: '/dashboard/workplace',
 };
+
+
+export const COMPANENT_MAP = {
+
+  'layout': ()=>import('@/layout/default-layout.vue'),
+  'workplace': () => import('@/views/dashboard/workplace/index.vue'),
+  // 'dashboard/analysis/index': () => import('@/views/list/index.vue'),
+  // 'system/user/index': () => import('@/views/system/user/index.vue'),
+  // 'system/role/index': () => import('@/views/system/role/index.vue'),
+}

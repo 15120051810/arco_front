@@ -98,7 +98,7 @@ const handleSubmit = async ({
           ...othersQuery,
         },
       }).catch((err) => {
-        console.error('路由跳转失败：', err);
+        Message.error('路由跳转失败：', err);
       });
       Message.success(t('login.form.login.success'));
       const { rememberPassword } = loginConfig.value;
@@ -110,7 +110,8 @@ const handleSubmit = async ({
       loginConfig.value.password = rememberPassword ? password : '';
     } catch (err) {
       // 如果登录过程中发生错误，将错误信息赋值给 errorMessage。
-      errorMessage.value = (err as Error).message;
+      Message.error(`登录有问题 ${err}`);
+      // errorMessage.value = (err as Error).message; // 这个是表单框上面的出错
     } finally {
       //  登录处理完成后，无论成功还是失败，都调用 setLoading(false)，重置加载状态。
       setLoading(false);

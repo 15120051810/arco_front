@@ -96,8 +96,8 @@
 
           <a-form-item :style="{ width: '400px' }" field="system" label="所属系统" required>
             <a-radio-group v-model="addRouterForm.system">
-              <a-radio :value="1">PC</a-radio>
-              <a-radio :value="0">APP</a-radio>
+              <a-radio :value="0">PC</a-radio>
+              <a-radio :value="1">APP</a-radio>
             </a-radio-group>
           </a-form-item>
 
@@ -151,7 +151,7 @@ const addRouterForm = reactive({
   show: 1,
   order_index: 1000,
   type: 0,
-  system: 1,
+  system: 0,
   keyword: '',
 });
 

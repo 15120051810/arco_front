@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <Breadcrumb :items="[
-      'menu.dj_table',
-      'menu.dj_table.practice'
+      'menu.table',
+      'menu.table.table_demo'
     ]" />
 
     <a-space direction="vertical" :size="16" fill>
@@ -64,6 +64,6 @@ import tableTree from './components/table_tree.vue'
 
 <script lang="ts">
 export default {
-  name: 'DJTable',
+  name: 'Table',
 };
 </script>

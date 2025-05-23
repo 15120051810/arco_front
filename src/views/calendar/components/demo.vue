@@ -3,7 +3,7 @@
   <div style="margin: 10px;">
 
     <a-card>
-      <a-calendar v-model="currentDate" :mode="mode" :default-mode="month" :modes="['month', 'year']" @change="Change"
+      <a-calendar v-model="currentDate" :mode="mode" :default-mode="'month'" :modes="['month', 'year']" @change="Change"
         @panel-change="panelChange">
 
         <template #default="{ year, month, date }">

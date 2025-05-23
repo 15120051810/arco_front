@@ -2,7 +2,7 @@
 const filePath = new URL('', import.meta.url).pathname
 console.log(filePath,'此文件开始执行.....')
 import { RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
-import { useUserStore } from '@/store';
+import { useUserStore,useAppStore } from '@/store';
 
 
 // 这段代码定义了一个自定义 Hook usePermission，用于处理用户权限相关逻辑。
@@ -13,7 +13,7 @@ import { useUserStore } from '@/store';
 export default function usePermission() {
   // 使用 useUserStore Hook 获取用户存储对象，用于获取用户的角色信息。
   const userStore = useUserStore();
-  
+  const appStore = useAppStore();
   // return { ... }：返回一个包含两个方法的对象： 
   return {
 
@@ -21,6 +21,8 @@ export default function usePermission() {
     // 用于检查用户是否有权限访问指定的路由。它接收一个路由对象作为参数，
     // 并根据路由的元信息（meta）中定义的角色信息进行判断。
     // 表示用户有权限访问该路由，否则返回 false。
+    
+    // 前端判断控制 路由权限的方法
     accessRouter(route: RouteLocationNormalized | RouteRecordRaw) {
       const res =  ( 
         !route.meta?.requiresAuth || // 如果路由不需要验证权限（requiresAuth 为 false）
@@ -32,10 +34,20 @@ export default function usePermission() {
       return res
     },
 
+    // 自定义 后端控制路由的权限，还没想好规则
+    accessBackendRouter(route: RouteLocationNormalized | RouteRecordRaw) {
+      // console.log('服务器菜单路径列表---》',appStore.serverMenuList)
+      // console.log('',appStore.serverMenuList)
+      const hasAccess = true
+      return hasAccess;
+    },
+
+
     // 用于查找用户在当前角色下的第一个有权限访问的路由。
     // 它接收路由配置数组 _routers 和用户角色 role 作为参数，并遍历路由配置数组，
     // 查找第一个满足用户角色要求的路由。如果找到了符合条件的路由，则返回该路由对象；
     // 如果没有找到符合条件的路由，则返回 null。
+    // 用于没有从后端获取菜单树
     findFirstPermissionRoute(_routers: any, role = 'admin') {
       const cloneRouters = [..._routers];
       while (cloneRouters.length) {

@@ -5,6 +5,8 @@ console.log(filePath,'此文件开始执行.....')
 
 // 从 Vue Router 中导入 RouteRecordNormalized 类型，用于表示标准化的路由记录。
 import type { RouteRecordNormalized } from 'vue-router';
+import { useAppStore } from '@/store';
+
 
 // import.meta.glob : Vite 特性，用于动态导入符合指定模式的所有模块。
 // 使用 import.meta.glob 方法动态导入位于 ./modules 目录下的所有 .ts 文件，并将结果存储在 modules 变量中。{ eager: true } 参数表示在应用启动时立即执行导入，而不是等到需要时再导入。
@@ -52,9 +54,11 @@ function formatModules(_modules: any, result: RouteRecordNormalized[]) {
 // debugger;
 console.log('Current module:', import.meta.url);
 console.trace('Tracking the import origin');  // 记录调用栈
+// 前端的静态路由
 export const appRoutes: RouteRecordNormalized[] = formatModules(modules, []);
 // debugger;
-console.log(filePath,'appRoutes',appRoutes) // 输出结果 [{},{},{}] 元素是一个个的defaultModule路由信息
+
+// console.log(filePath,'appRoutes',appRoutes) // 输出结果 [{},{},{}] 元素是一个个的defaultModule路由信息
 export const appExternalRoutes: RouteRecordNormalized[] = formatModules(
   externalModules,
   []

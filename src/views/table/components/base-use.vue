@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
-import { getBaseUseData } from '@/api/dj_table';
+import { getBaseUseData } from '@/api/table';
 
 let data = reactive([]);
 const columns = reactive([

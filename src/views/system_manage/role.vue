@@ -64,7 +64,7 @@
           </a-form-item>
 
           <a-form-item :style="{ width: '400px' }" field="routers" label="权限勾选" required>
-            <a-tree-select :loading="routerTreeLoading" v-model="addRoleForm.routers" :allow-search="true"
+            <a-tree-select :loading="routerTreeLoading" v-model="addRoleForm.routers" :allow-search="true" :max-tag-count='2'
               :fieldNames="{ key: 'id', title: 'title', children: 'children' }" :filter-tree-node="filterTreeNode"
               :allow-clear="true" :tree-checkable="true" :tree-props="{ 'default-expand-all': false }"
               @change="addSelectRouter" :tree-check-strictly="treeCheckStrictly" :data="routerTreeData"
@@ -100,7 +100,7 @@ import {
 
 const roleData = ref();
 const routerTreeData = ref();
-const treeCheckStrictly = ref(false);
+const treeCheckStrictly = ref(true);
 const loading = ref(false);
 const Modaltite = ref('')
 const submitLoading = ref(false);

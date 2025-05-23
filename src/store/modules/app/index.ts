@@ -5,6 +5,7 @@ import type { RouteRecordNormalized } from 'vue-router'; // RouteRecordNormalize
 import defaultSettings from '@/config/settings.json'; // 从配置文件导入默认设置
 import { getMenuList } from '@/api/user'; // 从 API 模块导入，用于获取菜单列表的函数
 import { AppState } from './types'; // 从 types 模块导入，用于定义应用状态的类型。
+import { S } from 'mockjs';
 
 const filePath = new URL('', import.meta.url).pathname
 
@@ -31,6 +32,11 @@ const useAppStore = defineStore('app', {
     appAsyncMenus(state: AppState): RouteRecordNormalized[] {
       console.log(filePath, '获取服务端菜单')
       return state.serverMenu as unknown as RouteRecordNormalized[];
+    },
+    // 返回服务器菜单数据，类型为 RouteRecordNormalized[]。
+    appAsyncMenusList(state: AppState): string[] {
+      console.log(filePath, '获取服务端菜单')
+      return state.serverMenuList as unknown as string[];
     },
   },
 
