@@ -1,6 +1,6 @@
 {
   "theme": "light",
-  "colorWeak": false,
+  "colorWeak": true,
   "navbar": true,
   "menu": true,
   "topMenu": false,
@@ -11,7 +11,7 @@
   "menuWidth": 220,
   "globalSettings": false,
   "device": "desktop",
-  "tabBar": false,
+  "tabBar": true,
   "menuFromServer": true,
   "serverMenu": [],
   "serverMenuList": []
