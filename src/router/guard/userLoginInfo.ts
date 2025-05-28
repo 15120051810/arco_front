@@ -27,7 +27,7 @@ export default function setupUserLoginInfoGuard(router: Router) {
       // 用户登录后
       // 检查用户存储中是否存在用户角色信息。如果存在角色信息，则表示用户已经获取了完整的用户信息，
       // 可以直接跳转到目标页面；否则，需要通过 userStore.info() 方法获取用户信息。
-      if (userStore.role) { // 刷新页面的时候 会重置store，role就没有了
+      if (userStore.role.length > 0) { // 刷新页面的时候 会重置store，role就没有了
         console.log(filePath,'发现用户角色信息', userStore.role)
         next(); // 继续路由跳转到目标页面。
       } else

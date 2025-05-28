@@ -4,7 +4,7 @@
     <a-card class="general-card" :title="$t('menu.system_manage.role_manage')">
 
       <template #title>
-        <a-button type="primary" @click="addRoleClick" style="margin-right: 20px;">添加角色</a-button>
+        <a-button v-role="['admin','superuser']" type="primary" @click="addRoleClick" style="margin-right: 20px;">添加角色</a-button>
       </template>
       <template #extra>
         <a-input style="width: 320px;margin-right: 20px;" v-model="listQuery.name" placeholder="请输入角色名称" allow-clear />
@@ -31,8 +31,8 @@
         </template>
 
         <template #cz="{ record, rowIndex }">
-          <a-button type="primary" style="margin-right: 20px;" @click="updateRoleClick(record, rowIndex)">编辑</a-button>
-          <a-button type="primary" @click="clickDeleteRole(record, rowIndex)">删除</a-button>
+          <a-button v-role="['admin','superuser']" type="primary" style="margin-right: 20px;" @click="updateRoleClick(record, rowIndex)">编辑</a-button>
+          <a-button v-role="['superuser']" type="primary" @click="clickDeleteRole(record, rowIndex)">删除</a-button>
         </template>
       </a-table>
     </a-card>

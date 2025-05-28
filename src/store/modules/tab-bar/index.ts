@@ -27,7 +27,7 @@ const BAN_LIST = [REDIRECT_ROUTE_NAME];
 // 定义了 state，返回一个 TabBarState 类型的对象
 // 这个 Pinia store 主要用于管理应用中的标签页状态，包括标签页的列表、缓存的标签页和各种操作（如添加、删除、更新标签页及其缓存）。
 // 通过 formatTag 函数格式化路由为标签属性，并根据需要更新标签页和缓存列表。
-const useAppStore = defineStore('tabBar', {
+const useTabBarStore = defineStore('tabBar', {
   state: (): TabBarState => ({
     cacheTabList: new Set([DEFAULT_ROUTE_NAME]), // 一个 Set 对象，用于存储缓存的标签页名称，初始化包含默认路由名称。
     tagList: [DEFAULT_ROUTE], // 存储标签页的数组，初始化包含默认路由。
@@ -78,11 +78,11 @@ const useAppStore = defineStore('tabBar', {
     },
     // 重置标签页列表为默认路由，并清空缓存列表，仅保留默认路由名称在缓存列表中。
     resetTabList() {
-      this.tagList = [DEFAULT_ROUTE];
+      this.tagList = [];
       this.cacheTabList.clear();
       this.cacheTabList.add(DEFAULT_ROUTE_NAME);
     },
   },
 });
 
-export default useAppStore;
+export default useTabBarStore;

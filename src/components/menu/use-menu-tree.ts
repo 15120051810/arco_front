@@ -41,10 +41,10 @@ export default function useMenuTree() {
       const collector: any = _routes.map((element) => {
         // no access
         // 如果当前路由没有访问权限，则返回 null。前后端都可以校验，如果是后端返回的菜单，其实都是有权限的，可以自定义鉴权方式accessRouter
-        if (!permission.accessRouter(element)) {
-          console.log(filePath,'没有权限',element.name)
-          return null;
-        }
+        // if (!permission.accessRouter(element)) {
+        //   console.log(filePath,'没有权限',element.name)
+        //   return null;
+        // }
 
         // leaf node
         // 如果是叶子节点（没有子路由或者 hideChildrenInMenu 为 true），将 children 置为空数组并返回。 

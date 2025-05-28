@@ -10,8 +10,8 @@ function checkPermission(el: HTMLElement, binding: DirectiveBinding) {
   if (Array.isArray(value)) {
     if (value.length > 0) {
       const permissionValues = value;
-
-      const hasPermission = permissionValues.includes(role);
+      // 前端传入一个角色数组，比如 ['admin', 'superuser']，只要其中一个角色出现在 userStore.role 里，就判定为有权限。
+      const hasPermission = permissionValues.some(r => role.includes(r));
       if (!hasPermission && el.parentNode) {
         el.parentNode.removeChild(el);
       }

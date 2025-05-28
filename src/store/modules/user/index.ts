@@ -11,6 +11,7 @@ import { setToken, clearToken } from '@/utils/auth';
 import { removeRouteListener } from '@/utils/route-listener';
 import { UserState } from './types';
 import useAppStore from '../app';
+import useTabBarStore from '../tab-bar';
 
 import imageUrl from '@/assets/images/avatar.jpg';
 import permission from '@/directive/permission';
@@ -36,7 +37,7 @@ const useUserStore = defineStore('user', {
     registrationDate: undefined,
     accountId: undefined,
     certification: undefined,
-    role: '',
+    role: [],
     permission: [],
   }),
 
@@ -49,12 +50,12 @@ const useUserStore = defineStore('user', {
 
   actions: {
     // 切换用户角色，返回一个 Promise 以便异步处理。
-    switchRoles() {
-      return new Promise((resolve) => {
-        this.role = this.role === 'user' ? 'admin' : 'user';
-        resolve(this.role);
-      });
-    },
+    // switchRoles() {
+    //   return new Promise((resolve) => {
+    //     this.role = this.role === 'user' ? 'admin' : 'user';
+    //     resolve(this.role);
+    //   });
+    // },
     // Set user's information 更新用户信息，通过 this.$patch 更新部分状态。
     setInfo(partial: Partial<UserState>) {
       this.$patch(partial);
@@ -98,12 +99,16 @@ const useUserStore = defineStore('user', {
     // 登出后的回调函数，重置用户信息，清除 token，移除路由监听器，并清空应用的菜单。
     logoutCallBack() {
       const appStore = useAppStore();
+      const tabBarStore = useTabBarStore();
       this.resetInfo();
       clearToken();
       removeRouteListener();
       appStore.clearServerMenu();
+      console.log('清空tabstore')
+      tabBarStore.resetTabList();
+
       window.localStorage.clear();  // 清空 所有 的 localStorage 数据
-      // window.localStorage.removeItem('username');
+      window.localStorage.removeItem('username');
 
     },
     // Logout 异步用户登出，成功后执行 logoutCallBack。

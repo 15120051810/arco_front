@@ -4,7 +4,7 @@ import my_permission from './my_permission';
 
 export default {
   install(Vue: App) {
-    // Vue.directive('permission', permission);
+    Vue.directive('role', permission);
     Vue.directive('has', my_permission);
   },
 };

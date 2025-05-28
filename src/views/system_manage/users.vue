@@ -4,7 +4,7 @@
     <a-card class="general-card" :title="$t('menu.system_manage.user_manage')">
 
       <template #title>
-        <a-button type="primary" @click="addUserClick" style="margin-right: 20px;">添加用户</a-button>
+        <a-button v-role="['admin','superuser']" type="primary" @click="addUserClick" style="margin-right: 20px;">添加用户</a-button>
       </template>
       <template #extra>
         <a-input style="width: 320px;margin-right: 20px;" v-model="listQuery.name" placeholder="请输入用户名称" allow-clear />
@@ -72,8 +72,8 @@
         </template>
 
         <template #cz="{ record, rowIndex }">
-          <a-button type="primary" style="margin-right: 20px;" @click="updateUserClick(record, rowIndex)">编辑</a-button>
-          <a-button type="primary" @click="clickDeleteUser(record, rowIndex)">删除</a-button>
+          <a-button v-role="['admin','superuser']" type="primary" style="margin-right: 20px;" @click="updateUserClick(record, rowIndex)">编辑</a-button>
+          <a-button v-role="['superuser']" type="primary" @click="clickDeleteUser(record, rowIndex)">删除</a-button>
         </template>
       </a-table>
     </a-card>
