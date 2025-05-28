@@ -15,6 +15,7 @@ export interface UserState {
   registrationDate?: string;
   accountId?: string;
   certification?: number;
+  homepage?: string;
   role: string[];
   permission:string[];
 }

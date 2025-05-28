@@ -37,6 +37,7 @@ const useUserStore = defineStore('user', {
     registrationDate: undefined,
     accountId: undefined,
     certification: undefined,
+    homepage:'workplace',
     role: [],
     permission: [],
   }),
@@ -89,8 +90,8 @@ const useUserStore = defineStore('user', {
         const res = await userLogin(loginForm);
         console.log(filePath,'登录返回结果',res)
         window.localStorage.setItem('username', loginForm.username);
-        
         setToken(res.data.token);
+        await this.info() // 登录后就更新用户store
       } catch (err) {
         clearToken();
         throw err;

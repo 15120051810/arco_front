@@ -91,9 +91,11 @@ const handleSubmit = async ({
       console.log(filePath,'登录后解包->redirect', redirect)
       console.log(filePath,'登录后解包->othersQuery', othersQuery)
 
+      console.log(filePath,'登录后->跳转首页', userStore.homepage)
+
       // router.push 用于页面导航，跳转到新的路由。 获取当前路由的查询参数后，并尝试重定向到 redirect 或默认页面 'Workplace'。
       router.push({
-        name: (redirect as string) || 'workplace',
+        name: (redirect as string) || userStore.homepage,
         query: {
           ...othersQuery,
         },
