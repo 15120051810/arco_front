@@ -16,8 +16,8 @@
         :loading="loading" :data="routerTreeData" style="margin-top: 20px">
         <template #type="{ record, rowIndex }">
           <div class="iconContainer">
-            <icon-font :type="`${record.type === 0 ? 'icon-mulu' : 'icon-yemian'}`" :size="20"> </icon-font>
-            <span style="font-size: 15px;">{{ record.type === 0 ? '目录' : '页面' }} </span>
+            <icon-font :type="`${menuDict[record.type].icon}`" :size="15"> </icon-font>
+            <span style="font-size: 15px;">{{ menuDict[record.type].name }} </span>
           </div>
         </template>
         <template #show="{ record, rowIndex }">
@@ -44,25 +44,41 @@
         <a-form ref="formRef" :model="addRouterForm" auto-label-width @submit="handleSubmit">
 
           <a-form-item :style="{ width: '400px' }" field="type" label="菜单类型" required>
-            <a-radio-group v-model="addRouterForm.type">
+            <a-radio-group v-model="addRouterForm.type" @change=''>
               <a-radio :value="0">目录</a-radio>
               <a-radio :value="1">页面</a-radio>
-              <a-radio :value="2">按钮</a-radio>
+              <a-radio :value="2">权限</a-radio>
             </a-radio-group>
           </a-form-item>
-          <a-form-item :style="{ width: '400px' }" field="title" label="菜单标题" required>
+
+
+          <div v-show="addRouterForm.type===2">
+          <a-form-item :style="{ width: '400px' }" field="title" label="权限描述" required>
+            <a-input v-model="addRouterForm.title" placeholder="权限描述..." />
+          </a-form-item>
+            <a-form-item :style="{ width: '400px' }" field="keyword" label="权限关键字">
+              <a-input v-model="addRouterForm.keyword" placeholder="权限关键字..." />
+            </a-form-item>
+            <a-form-item :style="{ width: '400px' }" field="order_index" label="排序">
+            <a-input-number v-model="addRouterForm.order_index" :default-value="1000" mode="button"
+              class="input-demo" />
+          </a-form-item>
+          </div>
+            
+        <div v-show="addRouterForm.type!=2">
+          <a-form-item :style="{ width: '400px' }" field="title" label="菜单标题">
             <a-input v-model="addRouterForm.title" placeholder="请输入菜单名称..." />
           </a-form-item>
-          <a-form-item :style="{ width: '400px' }" field="name" label="路由path" required>
+          <a-form-item :style="{ width: '400px' }" field="name" label="路由path">
             <a-input v-model="addRouterForm.name" placeholder="请输入路由唯一path..." />
           </a-form-item>
-          <a-form-item :style="{ width: '400px' }" field="component" label="组件component" required>
+          <a-form-item :style="{ width: '400px' }" field="component" label="组件component">
             <a-input v-model="addRouterForm.component" placeholder="请输入组件名称..." />
           </a-form-item>
 
-          <a-divider orientation="center">Meta</a-divider>
+            <a-divider orientation="center">Meta</a-divider>
 
-          <a-form-item :style="{ width: '400px' }" field="locale_title" label="菜单多语言配置" required>
+          <a-form-item :style="{ width: '400px' }" field="locale_title" label="菜单多语言配置">
             <a-input v-model="addRouterForm.locale_title" placeholder="请输入菜单多语言配置..." />
           </a-form-item>
           <a-form-item :style="{ width: '400px' }" field="icon" label="菜单图标">
@@ -76,12 +92,13 @@
               class="input-demo" />
           </a-form-item>
 
-          <a-form-item :style="{ width: '400px' }" field="show" label="是否展示" required>
+          <a-form-item :style="{ width: '400px' }" field="show" label="是否展示">
             <a-radio-group v-model="addRouterForm.show">
               <a-radio :value="1">展示</a-radio>
               <a-radio :value="0">不展示</a-radio>
             </a-radio-group>
           </a-form-item>
+        </div>
 
           <a-divider orientation="center">Correlation</a-divider>
 
@@ -125,8 +142,13 @@ import {
   req_router_manage_delete_router_api
 } from '@/api/system_manage'
 
-const IconFont = Icon.addFromIconFontCn({ src: 'https://at.alicdn.com/t/c/font_4250691_p452lbhnp0c.js' });
+const IconFont = Icon.addFromIconFontCn({ src: 'https://at.alicdn.com/t/c/font_4250691_i2i1d6az9rr.js' });
 
+const menuDict = {
+  0: {name:'目录',icon:'icon-mulu2'},
+  1: {name:'页面',icon:'icon-yemian'},
+  2: {name:'权限',icon:'icon-quanxian'},
+}
 
 const expandedKeys = ref([]);
 const routerTreeData = ref();
@@ -215,6 +237,7 @@ const updateRouterClick = async (record, rowIndex) => {
   addRouterForm.component = record.component;
   addRouterForm.icon = record.icon;
   addRouterForm.system = record.system;
+  addRouterForm.keyword = record.keyword;
 
 
   try {
@@ -278,7 +301,7 @@ const clickDeleteRouter = async (record, rowIndex) => {
 const handleSubmit = async ({ values, errors }) => {
   console.log('values:', values, '\nerrors:', errors)
   if (errors) {
-    // Message.error(errors)
+    Message.error(errors)
     return
   }
   console.log('Modaltite.value', Modaltite.value)

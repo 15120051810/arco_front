@@ -27,16 +27,18 @@ export default function setupUserLoginInfoGuard(router: Router) {
       // 用户登录后
       // 检查用户存储中是否存在用户角色信息。如果存在角色信息，则表示用户已经获取了完整的用户信息，
       // 可以直接跳转到目标页面；否则，需要通过 userStore.info() 方法获取用户信息。
-      if (userStore.role) {
+      if (userStore.role) { // 刷新页面的时候 会重置store，role就没有了
         console.log(filePath,'发现用户角色信息', userStore.role)
         next(); // 继续路由跳转到目标页面。
       } else
 
-      // 没有发现角色信息,需要通过 userStore.info() 方法获取用户信息。
+      // 没有发现角色信息,需要通过 userStore.info() 方法获取用户信息。 
       {
         try {
           console.log(filePath,'没有发现角色信息,开始获取用户信息')
           await userStore.info(); // 调用 userStore.info() 方法获取用户信息。这可能是一个异步操作，因此使用 await 等待获取用户信息完成。
+          // await userStore.permission(); // 将获取权限放在 获取用户信息的时候
+
           next(); // 等待用户信息获取完成后，继续路由跳转到目标页面。
         } catch (error) {
           // 如果获取用户信息时出现错误，可能意味着用户登录状态已失效，因此需要调用 userStore.logout() 方法登出用户。

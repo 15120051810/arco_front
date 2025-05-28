@@ -3,6 +3,7 @@ import {
   login as userLogin,
   logout as userLogout,
   getUserInfo,
+  getUserPermission,
   LoginData,
 } from '@/api/user';
 
@@ -12,6 +13,7 @@ import { UserState } from './types';
 import useAppStore from '../app';
 
 import imageUrl from '@/assets/images/avatar.jpg';
+import permission from '@/directive/permission';
 
 const filePath = new URL('', import.meta.url).pathname
 
@@ -35,6 +37,7 @@ const useUserStore = defineStore('user', {
     accountId: undefined,
     certification: undefined,
     role: '',
+    permission: [],
   }),
 
   // 返回当前用户状态的一个拷贝。
@@ -67,7 +70,15 @@ const useUserStore = defineStore('user', {
       const res = await getUserInfo();
       this.setInfo(res.data);
       console.log(filePath, '获取用户信息成功,并更新用户state', JSON.stringify(this.$state),this.role)
+      console.log('获取到的 permission 类型：', typeof res.data.permission, Array.isArray(res.data.permission), res.data.permission);
     },
+
+    // Get user's information  异步获取用户信息并更新状态。
+    // async permission() {
+    //   const res = await getUserPermission();
+    //   this.setInfo(res.data);
+    //   console.log(filePath, '获取用户权限成功,并更新用户state', JSON.stringify(res))
+    // },
 
     // Login 异步用户登录，成功后设置 token，并将用户角色保存到 localStorage。如果登录失败，清除 token 并抛出错误。
     async login(loginForm: LoginData) {

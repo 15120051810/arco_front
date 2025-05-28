@@ -1,4 +1,5 @@
 export type RoleType = any;
+
 export interface UserState {
   name?: string;
   avatar?: string;
@@ -16,4 +17,5 @@ export interface UserState {
   accountId?: string;
   certification?: number;
   role: RoleType;
+  permission:string[];
 }

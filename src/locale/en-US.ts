@@ -36,7 +36,8 @@ export default {
 
   'menu.table':'表格练习',
   'menu.table.practice': '练习场',
-
+  'menu.table.table_permission':'权限案例',
+  
   'menu.list': 'List',
   'menu.list.demo1': 'List Demo1',
   'menu.calendar': 'Calendar',

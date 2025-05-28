@@ -22,6 +22,15 @@ const LIST: AppRouteRecordRaw = {
                 // roles: ['*'],
             },
         },
+        {
+            path: 'table_permission',  // The midline path complies with SEO specifications
+            name: 'table_permission',
+            component: () => import('@/views/table/permission.vue'),
+            meta: {
+                locale: 'menu.table.table_permission',
+                requiresAuth: true,
+            },
+        },
     ],
 };
 

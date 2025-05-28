@@ -22,6 +22,10 @@ export function getUserInfo() {
   return axios.get<UserState>('/api/user/info/');
 }
 
+export function getUserPermission() {
+  return axios.get('/api/user/permission/');
+}
+
 export function getMenuList() {
-  return axios.post<RouteRecordNormalized[]>('/api/user/menu/');
+  return axios.get<RouteRecordNormalized[]>('/api/user/menu/');
 }

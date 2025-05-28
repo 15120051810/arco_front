@@ -3,9 +3,7 @@
     <a-card :style="{ width: '100%' }" title="基本使用" :bordered="false">
 
         <template #extra>
-
             <a-button @click="getData">获取数据</a-button>
-
         </template>
 
         <a-table :columns="columns" :data="data" />
@@ -16,7 +14,7 @@
 import { reactive, ref } from 'vue';
 import { getBaseUseData } from '@/api/table';
 
-let data = reactive([]);
+const data = ref([]);
 const columns = reactive([
     {
         title: 'Name',
@@ -41,7 +39,7 @@ const getData = async () => {
     try {
         const res = await getBaseUseData()
         console.log("表格基本使用获取数据", res)
-        // data = res
+        data.value = res
     } catch(err) {
         console.error(`出错${err}`)
     }

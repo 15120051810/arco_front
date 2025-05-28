@@ -35,8 +35,8 @@ export default {
 
   
   'menu.table':'表格',
-  'menu.table.table_demo': '案例',
-
+  'menu.table.table_demo': '表格案例',
+  'menu.table.table_permission':'权限案例',
 
   'menu.echarts': 'Echarts',
   'menu.echarts.demo': 'echarts Demo',

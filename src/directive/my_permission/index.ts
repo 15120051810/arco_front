@@ -1,23 +1,23 @@
 import { DirectiveBinding } from 'vue';
 import { useUserStore } from '@/store';
 
-// 使用角色权限
 function checkPermission(el: HTMLElement, binding: DirectiveBinding) {
   const { value } = binding;
   const userStore = useUserStore();
-  const { role } = userStore;
+  const { permission } = userStore;
 
-  if (Array.isArray(value)) {
-    if (value.length > 0) {
-      const permissionValues = value;
+  if (typeof value === 'string') {
 
-      const hasPermission = permissionValues.includes(role);
-      if (!hasPermission && el.parentNode) {
-        el.parentNode.removeChild(el);
-      }
+    console.log('判断权限---->',value)
+    console.log('该用户所有权限---->',permission)
+
+    const hasPermission = permission.includes(value);
+    if (!hasPermission && el.parentNode) {
+      el.parentNode.removeChild(el);
     }
+
   } else {
-    throw new Error(`need roles! Like v-permission="['admin','user']"`);
+    throw new Error(`v-permission 的值必须是字符串，例如：v-has="'admin'"`);
   }
 }
 

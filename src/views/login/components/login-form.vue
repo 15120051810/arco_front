@@ -93,7 +93,7 @@ const handleSubmit = async ({
 
       // router.push 用于页面导航，跳转到新的路由。 获取当前路由的查询参数后，并尝试重定向到 redirect 或默认页面 'Workplace'。
       router.push({
-        name: (redirect as string),
+        name: (redirect as string) || 'workplace',
         query: {
           ...othersQuery,
         },
