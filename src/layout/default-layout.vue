@@ -63,7 +63,11 @@
           <TabBar v-if="appStore.tabBar" />
           <a-layout-content>
             <!-- 这个组件里有viewroute 组件的占位符，匹配到啥路由就呈现 -->
-            <PageLayout /> 
+
+            <a-watermark :content="wartermarkCotent" rotate="15" alpha="0.7" >
+              <PageLayout /> 
+            </a-watermark>
+
           </a-layout-content>
           <Footer v-if="footer" />
         </a-layout>
@@ -85,6 +89,7 @@
   import usePermission from '@/hooks/permission';
   import useResponsive from '@/hooks/responsive';
   import PageLayout from './page-layout.vue';
+  import dayjs from 'dayjs'
 
   const isInit = ref(false);
   const appStore = useAppStore(); // appStore 管理布局、菜单、设置等全局状态。
@@ -98,6 +103,14 @@
   const renderMenu = computed(() => appStore.menu && !appStore.topMenu);
   const hideMenu = computed(() => appStore.hideMenu);
   const footer = computed(() => appStore.footer);
+
+  const currentDateTime = dayjs().format('YYYYMMDD HH:mm:ss')
+  const wartermarkCotent = computed(()=>{
+    if (userStore.name) {
+      return userStore.name + currentDateTime
+    }
+  })
+
   const menuWidth = computed(() => {
     return appStore.menuCollapse ? 48 : appStore.menuWidth;
   });
