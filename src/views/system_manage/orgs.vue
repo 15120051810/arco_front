@@ -1,8 +1,7 @@
 <template>
   <div class="container">
     <Breadcrumb :items="['menu.system_manage', 'menu.system_manage.orgs_manage']" />
-    <a-card class="general-card" :title="$t('menu.system_manage.orgs_manage')">
-      <a-card style="width: 100%;" title="Arco Card">
+      <a-card class="general-card" :title="$t('menu.system_manage.orgs_manage')">
 
         <template #title>
           <a-button type="primary" @click="addOrgClick" style="margin-right: 20px;">添加组织</a-button>
@@ -29,7 +28,6 @@
           </template>
         </a-table>
       </a-card>
-    </a-card>
 
     <a-modal v-model:visible="addOrgVisible" @ok="handleOk" @cancel="handleCancel">
       <template #title>

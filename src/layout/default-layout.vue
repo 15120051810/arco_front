@@ -64,7 +64,7 @@
           <a-layout-content>
             <!-- 这个组件里有viewroute 组件的占位符，匹配到啥路由就呈现 -->
 
-            <a-watermark :content="wartermarkCotent" rotate="15" alpha="0.7" >
+            <a-watermark :content="wartermarkCotent" :rotate="15" :alpha="0.5" >
               <PageLayout /> 
             </a-watermark>
 
