@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import {
   login as userLogin,
   logout as userLogout,
+  skipAuthLogin,
   getUserInfo,
   getUserPermission,
   LoginData,
@@ -9,7 +10,7 @@ import {
 
 import { setToken, clearToken } from '@/utils/auth';
 import { removeRouteListener } from '@/utils/route-listener';
-import { UserState } from './types';
+import { UserState, LoginResponse,SkipAuthLoginResponse } from './types';
 import useAppStore from '../app';
 import useTabBarStore from '../tab-bar';
 
@@ -37,7 +38,7 @@ const useUserStore = defineStore('user', {
     registrationDate: undefined,
     accountId: undefined,
     certification: undefined,
-    homepage:'workplace',
+    homepage: 'workplace',
     role: [],
     permission: [],
   }),
@@ -71,7 +72,7 @@ const useUserStore = defineStore('user', {
     async info() {
       const res = await getUserInfo();
       this.setInfo(res.data);
-      console.log(filePath, '获取用户信息成功,并更新用户state', JSON.stringify(this.$state),this.role)
+      console.log(filePath, '获取用户信息成功,并更新用户state', JSON.stringify(this.$state), this.role)
       console.log('获取到的 permission 类型：', typeof res.data.permission, Array.isArray(res.data.permission), res.data.permission);
     },
 
@@ -83,13 +84,20 @@ const useUserStore = defineStore('user', {
     // },
 
     // Login 异步用户登录，成功后设置 token，并将用户角色保存到 localStorage。如果登录失败，清除 token 并抛出错误。
+    // ✅ 为什么可以省略 window.？
+    // 在浏览器环境中：
+    // window 是全局对象；
+    // localStorage 是 window 的属性；
+    // 所以 window.localStorage === localStorage。
+
     async login(loginForm: LoginData) {
       try {
-        console.log(filePath,'登录loginForm',loginForm.username)
+        console.log(filePath, '登录loginForm', loginForm.username)
 
         const res = await userLogin(loginForm);
-        console.log(filePath,'登录返回结果',res)
-        window.localStorage.setItem('username', loginForm.username);
+        console.log(filePath, '登录返回结果', res)
+        window.localStorage.setItem('username', res.data?.username); //window 写不写都行
+        localStorage.setItem('refresh', res.data?.refresh)
         setToken(res.data.token);
         await this.info() // 登录后就更新用户store
       } catch (err) {
@@ -97,6 +105,23 @@ const useUserStore = defineStore('user', {
         throw err;
       }
     },
+    async skip_auth_login(data: any) {
+      try {
+        console.log(filePath, '跳过认证登录', data)
+        const res: any = await skipAuthLogin(data);
+        console.log(filePath, '跳过认证登录->返回结果', res)
+        localStorage.setItem('username', res.username); //window 写不写都行
+        localStorage.setItem('base_token', data.base_token); //window 写不写都行
+        localStorage.setItem('refresh', res.refresh)
+        setToken(res.token);
+        await this.info() // 登录后就更新用户store
+        return res.router_obj
+      } catch (err) {
+        clearToken();
+        throw err;
+      }
+    },
+
     // 登出后的回调函数，重置用户信息，清除 token，移除路由监听器，并清空应用的菜单。
     logoutCallBack() {
       const appStore = useAppStore();

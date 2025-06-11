@@ -11,9 +11,16 @@ export interface HttpResponse<T = unknown> {
   data: T;
 }
 
+export interface RefreshResponse {
+  access: string;
+}
+
+import { setToken, clearToken } from '@/utils/auth';
+
 if (import.meta.env.VITE_API_BASE_URL) {
   axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 }
+// axios.defaults.withCredentials = true
 
 const filePath = new URL('', import.meta.url).pathname
 
@@ -28,6 +35,7 @@ axios.interceptors.request.use(
     // Authorization is a custom headers key
     // please modify it according to the actual situation
     const token = getToken();
+    const base_token = localStorage.getItem('base_token');
     console.log(filePath, '请求拦截前,获取token 获取config')
 
     // console.log(filePath, '请求拦截前,获取token',token)
@@ -42,9 +50,11 @@ axios.interceptors.request.use(
       }
       // console.log(filePath,'请求头设置认证token格式', token)
       config.headers.Authorization = `Bearer ${token}`; // 设置token
+      config.headers.BaseToken = base_token || ''; // 设置base_token,如何这里加自定义请求头，会触发CORS（跨域资源共享）策略，详情查看chatGpt解答，
+      // 后端需要搭配 django-cors-headers 才可以使用。还没调试好
     }
-    console.log(filePath,'配置后的config,请求头添加了Authorization认证 Bearer token ')
-    // console.log(filePath,'请求拦截,配置后的config,请求头添加了Authorization认证 Bearer ... ', JSON.stringify(config))
+    console.log(filePath, '配置后的config,请求头添加了Authorization认证 Bearer token ')
+    console.log(filePath, '请求拦截,配置后的config,请求头添加了Authorization认证 Bearer ... ', JSON.stringify(config))
     return config;
   },
   (error) => {
@@ -54,7 +64,7 @@ axios.interceptors.request.use(
 );
 // add response interceptors
 axios.interceptors.response.use(
-  (response: AxiosResponse<HttpResponse>) => {
+  async (response) => {
     const res = response.data;
     // console.log('返回信息--->',res)
     // if the custom code is not 20000, it is judged as an error.
@@ -85,10 +95,12 @@ axios.interceptors.response.use(
     // }
     return res;
   },
-  (error) => {
+  async (error) => {
+    let originalRequest = error.config // 当你请求报错（比如返回了 401 错误），axios 会把请求的详细信息放在 error.config 里，也就是你原本发出去的请求对象。
     let errInfo = error.response.data.message;  // 获取错误信息（假设后端返回的 JSON 包含 message 字段）
     let status = error.response.status
-    console.log(filePath,'请求错误返回状态码', status, errInfo)
+    // originalRequest._retry  这是自己人为加的一个“标记”。作用防止死循环重复刷新 token。
+    console.log(filePath, '请求错误返回状态码', status, errInfo, originalRequest, originalRequest._retry)
 
     switch (status) {
       case 400:
@@ -101,14 +113,39 @@ axios.interceptors.response.use(
         errInfo = '服务端错误'
         break;
       case 401:
-        errInfo = 'TOKEN过期'
+        errInfo = 'REFRESH TOKEN过期'
+        // 👇 自动刷新 access token，防止refresh也过期造成死循环，多添加一层判断
+        if (!originalRequest._retry && !originalRequest.url.includes('/api/token/refresh') ) {
+          originalRequest._retry = true
+          const refresh = localStorage.getItem('refresh')
+          if (!refresh) {
+            window.location.href = '/login'
+            return Promise.reject(error)
+          }
+
+          try {
+            const res: RefreshResponse = await axios.post('/api/token/refresh/', { refresh })
+            const newAccess = res.access
+            setToken(newAccess)
+
+            originalRequest.headers.Authorization = `Bearer ${newAccess}`
+            return axios(originalRequest) // ⬅️ 重新发起原请求
+          } catch (err) {
+            localStorage.removeItem('token')
+            localStorage.removeItem('refresh')
+            // window.location.href = '/login'
+            window.location.href = import.meta.env.VITE_API_BASE_PT_URL
+            return Promise.reject(err)
+          }
+        }
+        window.location.href = import.meta.env.VITE_API_BASE_PT_URL
         break;
       case 403:
         errInfo = '无权访问'
         break;
     }
 
-    console.log(filePath,'请求错误返回', errInfo)
+    console.log(filePath, '请求错误返回', errInfo)
 
     Message.error({
       content: error.msg || errInfo,

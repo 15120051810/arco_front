@@ -19,3 +19,23 @@ export interface UserState {
   role: string[];
   permission:string[];
 }
+
+
+export interface LoginResponse {
+  code: number,
+  mes: string,
+  ok: Boolean,
+  data: {
+    username: string;
+    name: string;
+    token: string;
+    refresh: string;
+  } 
+}
+
+export interface SkipAuthLoginResponse {
+    username: string;
+    router_obj: object;
+    token: string;
+    refresh: string;
+}

@@ -27,8 +27,9 @@ export default function usePermission() {
       const res =  ( 
         !route.meta?.requiresAuth || // 如果路由不需要验证权限（requiresAuth 为 false）
         !route.meta?.roles || 
-        route.meta?.roles?.includes('*') ||
-        route.meta?.roles?.includes(userStore.role) // 或用户角色包含在路由允许的角色列表中，则返回 true，
+        route.meta?.roles?.includes('*') || 
+        route.meta?.roles.some(item => userStore.role.includes(item))
+        // route.meta?.roles?.includes(userStore.role) // 或用户角色包含在路由允许的角色列表中，则返回 true，
       ); 
       console.log(filePath,'开始判断要跳转路由的meta信息',JSON.stringify(route.meta),'是否有跳转权限',res)
       return res
@@ -48,13 +49,13 @@ export default function usePermission() {
     // 查找第一个满足用户角色要求的路由。如果找到了符合条件的路由，则返回该路由对象；
     // 如果没有找到符合条件的路由，则返回 null。
     // 用于没有从后端获取菜单树
-    findFirstPermissionRoute(_routers: any, role = 'admin') {
+    findFirstPermissionRoute(_routers: any, role:string[]) {
       const cloneRouters = [..._routers];
       while (cloneRouters.length) {
         const firstElement = cloneRouters.shift();
         if (
           firstElement?.meta?.roles?.find((el: string[]) => {
-            return el.includes('*') || el.includes(role);
+            return el.includes('*') || el.some(i =>role.includes(i));
           })
         )
           return { name: firstElement.name };

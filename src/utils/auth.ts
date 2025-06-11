@@ -1,3 +1,5 @@
+import Cookie from 'js-cookie';
+
 const TOKEN_KEY = 'token';
 
 const isLogin = () => {
@@ -17,6 +19,17 @@ const setToken = (token: string) => {
 
 const clearToken = () => {
   localStorage.removeItem(TOKEN_KEY);
+};
+
+
+const setBaseToken = (token: any) => {
+  Cookie.set('base_token', token);
+};
+const getBaseToken = () => {
+  return Cookie.get('base_token');
+};
+const clearBaseToken = () => {
+  Cookie.remove('base_token');
 };
 
 export { isLogin, getToken, setToken, clearToken };
