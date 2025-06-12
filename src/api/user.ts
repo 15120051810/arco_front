@@ -19,8 +19,8 @@ export function skipAuthLogin(data:any) {
 }
 
 
-export function logout() {
-  return axios.post('/api/user/logout/');
+export function logout(data:any) {
+  return axios.post('/api/user/logout/',data);
 }
 
 export function getUserInfo() {

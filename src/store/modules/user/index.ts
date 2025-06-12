@@ -132,15 +132,16 @@ const useUserStore = defineStore('user', {
       appStore.clearServerMenu();
       console.log('清空tabstore')
       tabBarStore.resetTabList();
-
+      
       window.localStorage.clear();  // 清空 所有 的 localStorage 数据
-      window.localStorage.removeItem('username');
+      // window.localStorage.removeItem('username');
+      window.location.href = import.meta.env.VITE_API_BASE_PT_URL
 
     },
     // Logout 异步用户登出，成功后执行 logoutCallBack。
     async logout() {
       try {
-        await userLogout();
+        await userLogout({'base_token':localStorage.getItem('base_token')});
       } finally {
         this.logoutCallBack();
       }
