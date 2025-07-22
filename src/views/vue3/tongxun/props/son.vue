@@ -11,7 +11,7 @@
     </div>
 </template>
 
-<script setup name="Child">
+<script setup >
 
 import { ref, onMounted, toRefs } from "vue";
 const toy = ref('奥特曼')
@@ -21,10 +21,10 @@ const { car, carArry } = toRefs(props)
 
 
 onMounted(() => {
-    console.log('carArry', props.carArry)
+    console.log('carArry', carArry)
 })
 
-// 不可以修改父亲给的车
+// 不可以修改父亲给的车 触发警告
 function changePCar() {
     car.value = '奔驰喷漆'
 }

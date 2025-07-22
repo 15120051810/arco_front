@@ -22,7 +22,7 @@ export default function setupUserLoginInfoGuard(router: Router) {
 
 
     if (to.path == "/dashboard/workplace" && to.query.token) {
-      console.log("请求验证 token ");
+      console.log("请求验证 token ",to.query.token);
       await userStore.skip_auth_login({ base_token: to.query.token }).then(
         (resp: any) => {
           console.log('开始跳转到首页---》', resp)

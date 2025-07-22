@@ -36,7 +36,7 @@ axios.interceptors.request.use(
     // please modify it according to the actual situation
     const token = getToken();
     const base_token = localStorage.getItem('base_token');
-    console.log(filePath, '请求拦截前,获取token 获取config')
+    console.log(filePath, '请求拦截前,获取token 获取config','token->',token,'base_token->',base_token)
 
     // console.log(filePath, '请求拦截前,获取token',token)
     // console.log(filePath, '请求拦截前,获取config', JSON.stringify(config))
@@ -114,12 +114,14 @@ axios.interceptors.response.use(
         break;
       case 401:
         errInfo = 'REFRESH TOKEN过期'
+        console.log('401401401401401401401')
         // 👇 自动刷新 access token，防止refresh也过期造成死循环，多添加一层判断
         if (!originalRequest._retry && !originalRequest.url.includes('/api/token/refresh') ) {
           originalRequest._retry = true
           const refresh = localStorage.getItem('refresh')
           if (!refresh) {
-            window.location.href = '/login'
+            // window.location.href = '/login'
+            window.location.href = import.meta.env.VITE_API_BASE_PT_URL
             return Promise.reject(error)
           }
 

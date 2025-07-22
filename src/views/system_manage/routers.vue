@@ -69,8 +69,9 @@
           <a-form-item :style="{ width: '400px' }" field="title" label="菜单标题">
             <a-input v-model="addRouterForm.title" placeholder="请输入菜单名称..." />
           </a-form-item>
-          <a-form-item :style="{ width: '400px' }" field="name" label="路由path">
-            <a-input v-model="addRouterForm.name" placeholder="请输入路由唯一path..." />
+          <!-- 路由name 页面点击每个菜单，都是通过goto 路由名称进行跳转的，就只此字段 -->
+          <a-form-item :style="{ width: '400px' }" field="name" label="路由name">
+            <a-input v-model="addRouterForm.name" placeholder="请输入路由唯一name..." />
           </a-form-item>
           <a-form-item :style="{ width: '400px' }" field="component" label="组件component">
             <a-input v-model="addRouterForm.component" placeholder="请输入组件名称..." />

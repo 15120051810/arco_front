@@ -9,7 +9,7 @@
             <h4>儿子给的玩具：{{ toy }}</h4>
             <Son :car="car" :getToy="getToy" :carArry="carArry" />
 
-            <button @click="changCar"> 改变父亲给孩子的车</button>
+            <button @click="changCar"> 父亲组件中改变：给孩子的车</button>
     <!-- <button @click="changCar"> 改变父亲给孩子的车</button> -->
     </a-card>
 </div>
@@ -17,7 +17,7 @@
 
 </template>
 
-<script setup lang="ts" name="Father">
+<script setup lang="ts">
 import Son from './son.vue'
 import { ref } from "vue";
 // 数据

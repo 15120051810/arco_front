@@ -84,7 +84,7 @@
         return result;
       };
       listenerRouteChange((newRoute) => { // 监听路由变化，并更新菜单的展开状态和选中状态。
-        console.log(filePath,'newRoute',JSON.stringify(newRoute))
+        // console.log(filePath,'newRoute',JSON.stringify(newRoute))
 
         const { requiresAuth, activeMenu, hideInMenu } = newRoute.meta;
         console.log(filePath,'requiresAuth, activeMenu, hideInMenu',requiresAuth, activeMenu, hideInMenu )

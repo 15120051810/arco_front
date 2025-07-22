@@ -111,8 +111,8 @@ const LIST: AppRouteRecordRaw = {
             },
         },
         {
-            path: 'tongxun',
-            name: 'TongXun',
+            path: 'tongxun', // 表示该路由在浏览器地址栏中对应的路径。
+            name: 'TongXun', // 用于通过名字跳转路由，推荐用于编程式导航（如 router.push({ name: 'TongXun' })）。
             component: () => import('@/views/vue3/tongxun/index.vue'), // 二级路由不需要绑定组件，只需要作为子路由的容器。要不然一点就空白了
             // redirect: '/tongxun/props', // 访问一级路由 重定向到里面的第一个路由
             meta: {
